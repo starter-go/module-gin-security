@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"strconv"
+
 	"github.com/gin-gonic/gin"
 	"github.com/starter-go/libgin"
 	"github.com/starter-go/security/rbac"
@@ -60,7 +62,7 @@ func (inst *PermissionController) handleGetList(c *gin.Context) {
 		controller:      inst,
 		context:         c,
 		wantRequestBody: false,
-		wantRequestPage: false,
+		wantRequestPage: true,
 		wantRequestID:   false,
 	}
 	inst.execute(req, req.doGetList)
@@ -81,7 +83,7 @@ func (inst *PermissionController) handleInsert(c *gin.Context) {
 	req := &myPermissionRequest{
 		controller:      inst,
 		context:         c,
-		wantRequestBody: false,
+		wantRequestBody: true,
 		wantRequestPage: false,
 		wantRequestID:   false,
 	}
@@ -92,7 +94,7 @@ func (inst *PermissionController) handleUpdate(c *gin.Context) {
 	req := &myPermissionRequest{
 		controller:      inst,
 		context:         c,
-		wantRequestBody: false,
+		wantRequestBody: true,
 		wantRequestPage: false,
 		wantRequestID:   false,
 	}
@@ -124,8 +126,8 @@ type myPermissionRequest struct {
 	wantRequestRBAC bool
 
 	// params
-	pagination rbac.Pagination
 	id         rbac.PermissionID
+	pagination rbac.Pagination
 	roles      rbac.RoleNameList
 
 	// body
@@ -144,6 +146,19 @@ func (inst *myPermissionRequest) open() error {
 		}
 	}
 
+	if inst.wantRequestID {
+		str := c.Param("id")
+		n, err := strconv.ParseInt(str, 10, 64)
+		if err != nil {
+			return err
+		}
+		inst.id = rbac.PermissionID(n)
+	}
+
+	if inst.wantRequestPage {
+		inst.pagination = getPagination(c)
+	}
+
 	return nil
 }
 
@@ -157,6 +172,17 @@ func (inst *myPermissionRequest) send(err error) {
 }
 
 func (inst *myPermissionRequest) doGetList() error {
+	ctx := inst.context
+	ser := inst.controller.Service
+	page := &inst.pagination
+	q := &rbac.PermissionQuery{}
+	q.Pagination = *page
+	list, err := ser.List(ctx, q)
+	if err != nil {
+		return err
+	}
+	inst.body2.Permissions = list
+	inst.body2.Pagination = page
 	return nil
 }
 
@@ -165,6 +191,17 @@ func (inst *myPermissionRequest) doGetOne() error {
 }
 
 func (inst *myPermissionRequest) doInsert() error {
+	ctx := inst.context
+	ser := inst.controller.Service
+	o1, err := getItemOnlyOne[rbac.PermissionDTO](inst.body1.Permissions)
+	if err != nil {
+		return err
+	}
+	o2, err := ser.Insert(ctx, o1)
+	if err != nil {
+		return err
+	}
+	inst.body2.Permissions = []*rbac.PermissionDTO{o2}
 	return nil
 }
 

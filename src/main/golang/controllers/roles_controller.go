@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"strconv"
+
 	"github.com/gin-gonic/gin"
 	"github.com/starter-go/libgin"
 	"github.com/starter-go/security/rbac"
@@ -60,8 +62,8 @@ func (inst *RoleController) handleGetList(c *gin.Context) {
 		controller:      inst,
 		context:         c,
 		wantRequestBody: false,
-		wantRequestPage: false,
 		wantRequestID:   false,
+		wantRequestPage: true,
 	}
 	inst.execute(req, req.doGetList)
 }
@@ -81,7 +83,7 @@ func (inst *RoleController) handleInsert(c *gin.Context) {
 	req := &myRoleRequest{
 		controller:      inst,
 		context:         c,
-		wantRequestBody: false,
+		wantRequestBody: true,
 		wantRequestPage: false,
 		wantRequestID:   false,
 	}
@@ -92,7 +94,7 @@ func (inst *RoleController) handleUpdate(c *gin.Context) {
 	req := &myRoleRequest{
 		controller:      inst,
 		context:         c,
-		wantRequestBody: false,
+		wantRequestBody: true,
 		wantRequestPage: false,
 		wantRequestID:   false,
 	}
@@ -124,8 +126,8 @@ type myRoleRequest struct {
 	wantRequestRBAC bool
 
 	// params
+	id         rbac.RoleID
 	pagination rbac.Pagination
-	id         rbac.PermissionID
 	roles      rbac.RoleNameList
 
 	// body
@@ -144,6 +146,19 @@ func (inst *myRoleRequest) open() error {
 		}
 	}
 
+	if inst.wantRequestID {
+		str := c.Param("id")
+		n, err := strconv.ParseInt(str, 10, 64)
+		if err != nil {
+			return err
+		}
+		inst.id = rbac.RoleID(n)
+	}
+
+	if inst.wantRequestPage {
+		inst.pagination = getPagination(c)
+	}
+
 	return nil
 }
 
@@ -157,6 +172,17 @@ func (inst *myRoleRequest) send(err error) {
 }
 
 func (inst *myRoleRequest) doGetList() error {
+	ctx := inst.context
+	ser := inst.controller.Service
+	page := &inst.pagination
+	q := &rbac.RoleQuery{}
+	q.Pagination = *page
+	list, err := ser.List(ctx, q)
+	if err != nil {
+		return err
+	}
+	inst.body2.Roles = list
+	inst.body2.Pagination = page
 	return nil
 }
 
@@ -165,6 +191,17 @@ func (inst *myRoleRequest) doGetOne() error {
 }
 
 func (inst *myRoleRequest) doInsert() error {
+	ctx := inst.context
+	ser := inst.controller.Service
+	o1, err := getItemOnlyOne[rbac.RoleDTO](inst.body1.Roles)
+	if err != nil {
+		return err
+	}
+	o2, err := ser.Insert(ctx, o1)
+	if err != nil {
+		return err
+	}
+	inst.body2.Roles = []*rbac.RoleDTO{o2}
 	return nil
 }
 

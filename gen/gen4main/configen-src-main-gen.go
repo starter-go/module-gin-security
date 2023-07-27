@@ -341,8 +341,8 @@ func (inst*pda2eabb8fd_controllers_UserController) getResponder(ie application.I
 }
 
 
-func (inst*pda2eabb8fd_controllers_UserController) getService(ie application.InjectionExt)p2dece1e49.PermissionService{
-    return ie.GetComponent("#alias-2dece1e495fd61b93f78009d229f38cf-PermissionService").(p2dece1e49.PermissionService)
+func (inst*pda2eabb8fd_controllers_UserController) getService(ie application.InjectionExt)p2dece1e49.UserService{
+    return ie.GetComponent("#alias-2dece1e495fd61b93f78009d229f38cf-UserService").(p2dece1e49.UserService)
 }
 
 

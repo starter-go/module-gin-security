@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"strconv"
+
 	"github.com/gin-gonic/gin"
 	"github.com/starter-go/libgin"
 	"github.com/starter-go/security/rbac"
@@ -21,8 +23,8 @@ type UserController struct {
 	//starter:component()
 	_as func(libgin.Controller) //starter:as(".")
 
-	Responder libgin.Responder       //starter:inject("#")
-	Service   rbac.PermissionService //starter:inject("#")
+	Responder libgin.Responder //starter:inject("#")
+	Service   rbac.UserService //starter:inject("#")
 
 }
 
@@ -60,7 +62,7 @@ func (inst *UserController) handleGetList(c *gin.Context) {
 		controller:      inst,
 		context:         c,
 		wantRequestBody: false,
-		wantRequestPage: false,
+		wantRequestPage: true,
 		wantRequestID:   false,
 	}
 	inst.execute(req, req.doGetList)
@@ -81,7 +83,7 @@ func (inst *UserController) handleInsert(c *gin.Context) {
 	req := &myUserRequest{
 		controller:      inst,
 		context:         c,
-		wantRequestBody: false,
+		wantRequestBody: true,
 		wantRequestPage: false,
 		wantRequestID:   false,
 	}
@@ -92,7 +94,7 @@ func (inst *UserController) handleUpdate(c *gin.Context) {
 	req := &myUserRequest{
 		controller:      inst,
 		context:         c,
-		wantRequestBody: false,
+		wantRequestBody: true,
 		wantRequestPage: false,
 		wantRequestID:   false,
 	}
@@ -124,8 +126,8 @@ type myUserRequest struct {
 	wantRequestRBAC bool
 
 	// params
+	id         rbac.UserID
 	pagination rbac.Pagination
-	id         rbac.PermissionID
 	roles      rbac.RoleNameList
 
 	// body
@@ -144,6 +146,19 @@ func (inst *myUserRequest) open() error {
 		}
 	}
 
+	if inst.wantRequestID {
+		str := c.Param("id")
+		n, err := strconv.ParseInt(str, 10, 64)
+		if err != nil {
+			return err
+		}
+		inst.id = rbac.UserID(n)
+	}
+
+	if inst.wantRequestPage {
+		inst.pagination = getPagination(c)
+	}
+
 	return nil
 }
 
@@ -157,6 +172,17 @@ func (inst *myUserRequest) send(err error) {
 }
 
 func (inst *myUserRequest) doGetList() error {
+	ctx := inst.context
+	ser := inst.controller.Service
+	page := &inst.pagination
+	q := &rbac.UserQuery{}
+	q.Pagination = *page
+	list, err := ser.List(ctx, q)
+	if err != nil {
+		return err
+	}
+	inst.body2.Users = list
+	inst.body2.Pagination = page
 	return nil
 }
 
@@ -165,6 +191,17 @@ func (inst *myUserRequest) doGetOne() error {
 }
 
 func (inst *myUserRequest) doInsert() error {
+	ctx := inst.context
+	ser := inst.controller.Service
+	o1, err := getItemOnlyOne[rbac.UserDTO](inst.body1.Users)
+	if err != nil {
+		return err
+	}
+	o2, err := ser.Insert(ctx, o1)
+	if err != nil {
+		return err
+	}
+	inst.body2.Users = []*rbac.UserDTO{o2}
 	return nil
 }
 
