@@ -51,3 +51,13 @@ func getPagination(c *gin.Context) rbac.Pagination {
 		Size: int(size),
 	}
 }
+
+// GetPagination ...
+func GetPagination(c *gin.Context) rbac.Pagination {
+	return getPagination(c)
+}
+
+// GetItemOnlyOne ...
+func GetItemOnlyOne[T any](list []*T) (*T, error) {
+	return getItemOnlyOne(list)
+}

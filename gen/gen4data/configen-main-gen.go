@@ -1,4 +1,4 @@
-package gen4main
+package gen4data
 
 import "github.com/starter-go/application"
 
@@ -30,14 +30,11 @@ func (inst *autoRegistrar) register(factory comFactory) error {
 func (inst*autoRegistrar) addAll() error {
 
     
-    inst.register(&p4ba0ff4dda_tokens_GinJWTokenAdapter{})
-    inst.register(&pda2eabb8fd_controllers_AuthController{})
-    inst.register(&pda2eabb8fd_controllers_ExampleController{})
-    inst.register(&pda2eabb8fd_controllers_PermissionController{})
-    inst.register(&pda2eabb8fd_controllers_RoleController{})
-    inst.register(&pda2eabb8fd_controllers_SessionController{})
-    inst.register(&pda2eabb8fd_controllers_UserController{})
-    inst.register(&ped246966fe_golang_JSONGinResponder{})
+    inst.register(&p4879aa5e6a_data_EmailDao{})
+    inst.register(&p4879aa5e6a_data_PermissionDao{})
+    inst.register(&p4879aa5e6a_data_PhoneDao{})
+    inst.register(&p4879aa5e6a_data_RoleDao{})
+    inst.register(&p4879aa5e6a_data_UserDao{})
 
 
     return nil

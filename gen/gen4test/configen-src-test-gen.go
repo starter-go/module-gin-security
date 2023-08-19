@@ -1,24 +1,24 @@
 package gen4test
 import (
     pd1a916a20 "github.com/starter-go/libgin"
-    p2c7ffb218 "github.com/starter-go/module-gin-security/src/test/golang"
+    pae18fcf34 "github.com/starter-go/module-security-gin-gorm/src/test/golang"
     p91f218d46 "github.com/starter-go/security/jwt"
      "github.com/starter-go/application"
 )
 
-// type p2c7ffb218.Demo1Controller in package:github.com/starter-go/module-gin-security/src/test/golang
+// type pae18fcf34.Demo1Controller in package:github.com/starter-go/module-security-gin-gorm/src/test/golang
 //
-// id:com-2c7ffb21840730eb-golang-Demo1Controller
+// id:com-ae18fcf347d8eb13-golang-Demo1Controller
 // class:class-d1a916a203352fd5d33eabc36896b42e-Controller
 // alias:
 // scope:singleton
 //
-type p2c7ffb2184_golang_Demo1Controller struct {
+type pae18fcf347_golang_Demo1Controller struct {
 }
 
-func (inst* p2c7ffb2184_golang_Demo1Controller) register(cr application.ComponentRegistry) error {
+func (inst* pae18fcf347_golang_Demo1Controller) register(cr application.ComponentRegistry) error {
 	r := cr.NewRegistration()
-	r.ID = "com-2c7ffb21840730eb-golang-Demo1Controller"
+	r.ID = "com-ae18fcf347d8eb13-golang-Demo1Controller"
 	r.Classes = "class-d1a916a203352fd5d33eabc36896b42e-Controller"
 	r.Aliases = ""
 	r.Scope = "singleton"
@@ -27,13 +27,13 @@ func (inst* p2c7ffb2184_golang_Demo1Controller) register(cr application.Componen
 	return r.Commit()
 }
 
-func (inst* p2c7ffb2184_golang_Demo1Controller) new() any {
-    return &p2c7ffb218.Demo1Controller{}
+func (inst* pae18fcf347_golang_Demo1Controller) new() any {
+    return &pae18fcf34.Demo1Controller{}
 }
 
-func (inst* p2c7ffb2184_golang_Demo1Controller) inject(injext application.InjectionExt, instance any) error {
+func (inst* pae18fcf347_golang_Demo1Controller) inject(injext application.InjectionExt, instance any) error {
 	ie := injext
-	com := instance.(*p2c7ffb218.Demo1Controller)
+	com := instance.(*pae18fcf34.Demo1Controller)
 	nop(ie, com)
 
 	
@@ -45,12 +45,12 @@ func (inst* p2c7ffb2184_golang_Demo1Controller) inject(injext application.Inject
 }
 
 
-func (inst*p2c7ffb2184_golang_Demo1Controller) getResponder(ie application.InjectionExt)pd1a916a20.Responder{
+func (inst*pae18fcf347_golang_Demo1Controller) getResponder(ie application.InjectionExt)pd1a916a20.Responder{
     return ie.GetComponent("#alias-d1a916a203352fd5d33eabc36896b42e-Responder").(pd1a916a20.Responder)
 }
 
 
-func (inst*p2c7ffb2184_golang_Demo1Controller) getJWTser(ie application.InjectionExt)p91f218d46.Service{
+func (inst*pae18fcf347_golang_Demo1Controller) getJWTser(ie application.InjectionExt)p91f218d46.Service{
     return ie.GetComponent("#alias-91f218d46ec21cd234778bbe54aecc66-Service").(p91f218d46.Service)
 }
 

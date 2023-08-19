@@ -3,8 +3,18 @@
         "version": "4",
         "sources": [
             {
-                "id": "main",
-                "path": "src/main/golang",
+                "id": "core",
+                "path": "internal/core",
+                "r": true
+            },
+            {
+                "id": "data",
+                "path": "internal/data",
+                "r": true
+            },
+            {
+                "id": "web",
+                "path": "internal/web",
                 "r": true
             },
             {
@@ -15,10 +25,24 @@
         ],
         "destinations": [
             {
-                "id": "main",
-                "path": "gen/gen4main",
+                "id": "core",
+                "path": "gen/gen4core",
                 "sources": [
-                    "main"
+                    "core"
+                ]
+            },
+            {
+                "id": "data",
+                "path": "gen/gen4data",
+                "sources": [
+                    "data"
+                ]
+            },
+            {
+                "id": "web",
+                "path": "gen/gen4web",
+                "sources": [
+                    "web"
                 ]
             },
             {

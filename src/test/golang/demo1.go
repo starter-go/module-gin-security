@@ -148,7 +148,7 @@ func (inst *demo1request) doPut() error {
 
 	now := lang.Now()
 
-	o := &jwt.DTO{
+	o := &jwt.Token{
 		ExpiredAt: now + 666000,
 	}
 

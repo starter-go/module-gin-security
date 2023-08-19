@@ -1,2 +1,2 @@
-# module-gin-security
-gin 的安全模块
+# module-security-gin-gorm
+由 gin+gorm 实现的安全模块

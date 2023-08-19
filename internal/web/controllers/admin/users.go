@@ -1,53 +1,58 @@
-package controllers
+package admin
 
 import (
+	"strconv"
+
 	"github.com/gin-gonic/gin"
 	"github.com/starter-go/libgin"
 	"github.com/starter-go/security/rbac"
 )
 
-// AuthVO ...
-type AuthVO struct {
+// UserVO ...
+type UserVO struct {
 	rbac.BaseVO
 
-	Auth rbac.AuthDTO `json:"auth"`
+	Users []*rbac.UserDTO `json:"users"`
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
-// AuthController ...
-type AuthController struct {
+// UserController ...
+type UserController struct {
 
 	//starter:component()
 	_as func(libgin.Controller) //starter:as(".")
 
 	Responder libgin.Responder //starter:inject("#")
-	Service   rbac.AuthService //starter:inject("#")
+	Service   rbac.UserService //starter:inject("#")
 
 }
 
-func (inst *AuthController) _impl() {
+func (inst *UserController) _impl() {
 	inst._as(inst)
 }
 
 // Registration ...
-func (inst *AuthController) Registration() *libgin.ControllerRegistration {
-	return &libgin.ControllerRegistration{Route: inst.route}
+func (inst *UserController) Registration() *libgin.ControllerRegistration {
+	return &libgin.ControllerRegistration{
+		Route:  inst.route,
+		Groups: []string{"admin"},
+	}
 }
 
-func (inst *AuthController) route(g *gin.RouterGroup) error {
-	g = g.Group("auth")
+func (inst *UserController) route(g *gin.RouterGroup) error {
+	g = g.Group("users")
 
 	g.GET("", inst.handleGetList)
 	g.GET(":id", inst.handleGetOne)
 	g.PUT(":id", inst.handleUpdate)
 	g.DELETE(":id", inst.handleRemove)
-	g.POST("", inst.handlePost)
+	g.POST("", inst.handleInsert)
 
 	return nil
 }
 
-func (inst *AuthController) execute(req *myAuthRequest, fn func() error) {
+func (inst *UserController) execute(req *myUserRequest, fn func() error) {
 	err := req.open()
 	if err == nil {
 		err = fn()
@@ -55,19 +60,19 @@ func (inst *AuthController) execute(req *myAuthRequest, fn func() error) {
 	req.send(err)
 }
 
-func (inst *AuthController) handleGetList(c *gin.Context) {
-	req := &myAuthRequest{
+func (inst *UserController) handleGetList(c *gin.Context) {
+	req := &myUserRequest{
 		controller:      inst,
 		context:         c,
 		wantRequestBody: false,
-		wantRequestPage: false,
+		wantRequestPage: true,
 		wantRequestID:   false,
 	}
 	inst.execute(req, req.doGetList)
 }
 
-func (inst *AuthController) handleGetOne(c *gin.Context) {
-	req := &myAuthRequest{
+func (inst *UserController) handleGetOne(c *gin.Context) {
+	req := &myUserRequest{
 		controller:      inst,
 		context:         c,
 		wantRequestBody: false,
@@ -77,30 +82,30 @@ func (inst *AuthController) handleGetOne(c *gin.Context) {
 	inst.execute(req, req.doGetOne)
 }
 
-func (inst *AuthController) handlePost(c *gin.Context) {
-	req := &myAuthRequest{
+func (inst *UserController) handleInsert(c *gin.Context) {
+	req := &myUserRequest{
 		controller:      inst,
 		context:         c,
 		wantRequestBody: true,
 		wantRequestPage: false,
 		wantRequestID:   false,
 	}
-	inst.execute(req, req.doLogin)
+	inst.execute(req, req.doInsert)
 }
 
-func (inst *AuthController) handleUpdate(c *gin.Context) {
-	req := &myAuthRequest{
+func (inst *UserController) handleUpdate(c *gin.Context) {
+	req := &myUserRequest{
 		controller:      inst,
 		context:         c,
-		wantRequestBody: false,
+		wantRequestBody: true,
 		wantRequestPage: false,
 		wantRequestID:   false,
 	}
 	inst.execute(req, req.doUpdate)
 }
 
-func (inst *AuthController) handleRemove(c *gin.Context) {
-	req := &myAuthRequest{
+func (inst *UserController) handleRemove(c *gin.Context) {
+	req := &myUserRequest{
 		controller:      inst,
 		context:         c,
 		wantRequestBody: false,
@@ -112,9 +117,9 @@ func (inst *AuthController) handleRemove(c *gin.Context) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type myAuthRequest struct {
+type myUserRequest struct {
 	// contexts
-	controller *AuthController
+	controller *UserController
 	context    *gin.Context
 
 	// flags
@@ -124,16 +129,16 @@ type myAuthRequest struct {
 	wantRequestRBAC bool
 
 	// params
+	id         rbac.UserID
 	pagination rbac.Pagination
-	id         rbac.PermissionID
 	roles      rbac.RoleNameList
 
 	// body
-	body1 AuthVO
-	body2 AuthVO
+	body1 UserVO
+	body2 UserVO
 }
 
-func (inst *myAuthRequest) open() error {
+func (inst *myUserRequest) open() error {
 
 	c := inst.context
 
@@ -144,10 +149,23 @@ func (inst *myAuthRequest) open() error {
 		}
 	}
 
+	if inst.wantRequestID {
+		str := c.Param("id")
+		n, err := strconv.ParseInt(str, 10, 64)
+		if err != nil {
+			return err
+		}
+		inst.id = rbac.UserID(n)
+	}
+
+	if inst.wantRequestPage {
+		inst.pagination = getPagination(c)
+	}
+
 	return nil
 }
 
-func (inst *myAuthRequest) send(err error) {
+func (inst *myUserRequest) send(err error) {
 	resp := &libgin.Response{}
 	resp.Data = &inst.body2
 	resp.Context = inst.context
@@ -156,34 +174,45 @@ func (inst *myAuthRequest) send(err error) {
 	inst.controller.Responder.Send(resp)
 }
 
-func (inst *myAuthRequest) doGetList() error {
-	return nil
-}
-
-func (inst *myAuthRequest) doGetOne() error {
-	return nil
-}
-
-func (inst *myAuthRequest) doLogin() error {
-
+func (inst *myUserRequest) doGetList() error {
 	ctx := inst.context
 	ser := inst.controller.Service
-	o1 := &inst.body1.Auth
-
-	o2, err := ser.Login(ctx, o1)
+	page := &inst.pagination
+	q := &rbac.UserQuery{}
+	q.Pagination = *page
+	list, err := ser.List(ctx, q)
 	if err != nil {
 		return err
 	}
-
-	inst.body2.Auth = *o2
+	inst.body2.Users = list
+	inst.body2.Pagination = page
 	return nil
 }
 
-func (inst *myAuthRequest) doUpdate() error {
+func (inst *myUserRequest) doGetOne() error {
 	return nil
 }
 
-func (inst *myAuthRequest) doRemove() error {
+func (inst *myUserRequest) doInsert() error {
+	ctx := inst.context
+	ser := inst.controller.Service
+	o1, err := getItemOnlyOne[rbac.UserDTO](inst.body1.Users)
+	if err != nil {
+		return err
+	}
+	o2, err := ser.Insert(ctx, o1)
+	if err != nil {
+		return err
+	}
+	inst.body2.Users = []*rbac.UserDTO{o2}
+	return nil
+}
+
+func (inst *myUserRequest) doUpdate() error {
+	return nil
+}
+
+func (inst *myUserRequest) doRemove() error {
 	return nil
 }
 

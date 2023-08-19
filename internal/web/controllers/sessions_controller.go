@@ -3,6 +3,7 @@ package controllers
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/starter-go/libgin"
+	"github.com/starter-go/security/jwt"
 	"github.com/starter-go/security/rbac"
 )
 
@@ -21,8 +22,9 @@ type SessionController struct {
 	//starter:component()
 	_as func(libgin.Controller) //starter:as(".")
 
-	Responder libgin.Responder       //starter:inject("#")
-	Service   rbac.PermissionService //starter:inject("#")
+	Responder  libgin.Responder       //starter:inject("#")
+	Service    rbac.PermissionService //starter:inject("#")
+	JWTService jwt.Service            //starter:inject("#")
 
 }
 
@@ -39,6 +41,7 @@ func (inst *SessionController) route(g *gin.RouterGroup) error {
 	g = g.Group("sessions")
 
 	g.GET("", inst.handleGetList)
+	g.GET("current", inst.handleGetCurrent)
 	g.GET(":id", inst.handleGetOne)
 	g.PUT(":id", inst.handleUpdate)
 	g.DELETE(":id", inst.handleRemove)
@@ -75,6 +78,17 @@ func (inst *SessionController) handleGetOne(c *gin.Context) {
 		wantRequestID:   false,
 	}
 	inst.execute(req, req.doGetOne)
+}
+
+func (inst *SessionController) handleGetCurrent(c *gin.Context) {
+	req := &mySessionRequest{
+		controller:      inst,
+		context:         c,
+		wantRequestBody: false,
+		wantRequestPage: false,
+		wantRequestID:   false,
+	}
+	inst.execute(req, req.doGetCurrent)
 }
 
 func (inst *SessionController) handleInsert(c *gin.Context) {
@@ -161,6 +175,19 @@ func (inst *mySessionRequest) doGetList() error {
 }
 
 func (inst *mySessionRequest) doGetOne() error {
+	return nil
+}
+
+func (inst *mySessionRequest) doGetCurrent() error {
+	ctx := inst.context
+	session := &rbac.SessionDTO{}
+	j, err := inst.controller.JWTService.GetDTO(ctx)
+	if err == nil {
+		*session = j.Session
+	}
+	list := inst.body2.Sessions
+	list = append(list, session)
+	inst.body2.Sessions = list
 	return nil
 }
 

@@ -1,4 +1,4 @@
-package tokens
+package web
 
 import (
 	"context"
@@ -56,7 +56,7 @@ func (inst *GinJWTokenAdapter) Accept(c context.Context) bool {
 }
 
 // GetDTO ...
-func (inst *GinJWTokenAdapter) GetDTO(c context.Context) (*jwt.DTO, error) {
+func (inst *GinJWTokenAdapter) GetDTO(c context.Context) (*jwt.Token, error) {
 	text, err := inst.GetText(c)
 	if err != nil {
 		return nil, err
@@ -93,7 +93,7 @@ func (inst *GinJWTokenAdapter) GetText(c context.Context) (jwt.Text, error) {
 }
 
 // SetDTO ...
-func (inst *GinJWTokenAdapter) SetDTO(c context.Context, o *jwt.DTO) error {
+func (inst *GinJWTokenAdapter) SetDTO(c context.Context, o *jwt.Token) error {
 	text, err := inst.JWTser.Encode(o)
 	if err != nil {
 		return err
