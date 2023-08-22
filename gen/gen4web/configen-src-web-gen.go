@@ -4,6 +4,7 @@ import (
     pa9413a197 "github.com/starter-go/module-security-gin-gorm/internal/web"
     pe1f113ef5 "github.com/starter-go/module-security-gin-gorm/internal/web/controllers"
     pa70cfe71f "github.com/starter-go/module-security-gin-gorm/internal/web/controllers/admin"
+    pfbdcfa528 "github.com/starter-go/module-security-gin-gorm/internal/web/groups"
     p91f218d46 "github.com/starter-go/security/jwt"
     p2dece1e49 "github.com/starter-go/security/rbac"
      "github.com/starter-go/application"
@@ -623,6 +624,62 @@ func (inst*pa70cfe71fb_admin_UserController) getResponder(ie application.Injecti
 
 func (inst*pa70cfe71fb_admin_UserController) getService(ie application.InjectionExt)p2dece1e49.UserService{
     return ie.GetComponent("#alias-2dece1e495fd61b93f78009d229f38cf-UserService").(p2dece1e49.UserService)
+}
+
+
+
+// type pfbdcfa528.AdminWebGroup in package:github.com/starter-go/module-security-gin-gorm/internal/web/groups
+//
+// id:com-fbdcfa5284ffd46f-groups-AdminWebGroup
+// class:class-d1a916a203352fd5d33eabc36896b42e-Group
+// alias:
+// scope:singleton
+//
+type pfbdcfa5284_groups_AdminWebGroup struct {
+}
+
+func (inst* pfbdcfa5284_groups_AdminWebGroup) register(cr application.ComponentRegistry) error {
+	r := cr.NewRegistration()
+	r.ID = "com-fbdcfa5284ffd46f-groups-AdminWebGroup"
+	r.Classes = "class-d1a916a203352fd5d33eabc36896b42e-Group"
+	r.Aliases = ""
+	r.Scope = "singleton"
+	r.NewFunc = inst.new
+	r.InjectFunc = inst.inject
+	return r.Commit()
+}
+
+func (inst* pfbdcfa5284_groups_AdminWebGroup) new() any {
+    return &pfbdcfa528.AdminWebGroup{}
+}
+
+func (inst* pfbdcfa5284_groups_AdminWebGroup) inject(injext application.InjectionExt, instance any) error {
+	ie := injext
+	com := instance.(*pfbdcfa528.AdminWebGroup)
+	nop(ie, com)
+
+	
+    com.Context = inst.getContext(ie)
+    com.Name = inst.getName(ie)
+    com.Path = inst.getPath(ie)
+
+
+    return nil
+}
+
+
+func (inst*pfbdcfa5284_groups_AdminWebGroup) getContext(ie application.InjectionExt)pd1a916a20.Context{
+    return ie.GetComponent("#alias-d1a916a203352fd5d33eabc36896b42e-Context").(pd1a916a20.Context)
+}
+
+
+func (inst*pfbdcfa5284_groups_AdminWebGroup) getName(ie application.InjectionExt)string{
+    return ie.GetString("${web-group.admin.name}")
+}
+
+
+func (inst*pfbdcfa5284_groups_AdminWebGroup) getPath(ie application.InjectionExt)string{
+    return ie.GetString("${web-group.admin.path}")
 }
 
 

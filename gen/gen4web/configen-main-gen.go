@@ -42,6 +42,7 @@ func (inst*autoRegistrar) addAll() error {
     inst.register(&pe1f113ef5f_controllers_SessionController{})
     inst.register(&pe1f113ef5f_controllers_TokenController{})
     inst.register(&pe1f113ef5f_controllers_UserController{})
+    inst.register(&pfbdcfa5284_groups_AdminWebGroup{})
 
 
     return nil
