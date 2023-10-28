@@ -3,18 +3,8 @@
         "version": "4",
         "sources": [
             {
-                "id": "core",
-                "path": "internal/core",
-                "r": true
-            },
-            {
-                "id": "data",
-                "path": "internal/data",
-                "r": true
-            },
-            {
-                "id": "web",
-                "path": "internal/web",
+                "id": "main",
+                "path": "components",
                 "r": true
             },
             {
@@ -25,29 +15,15 @@
         ],
         "destinations": [
             {
-                "id": "core",
-                "path": "gen/gen4core",
+                "id": "main",
+                "path": "gen/gen4ggsecurity",
                 "sources": [
-                    "core"
-                ]
-            },
-            {
-                "id": "data",
-                "path": "gen/gen4data",
-                "sources": [
-                    "data"
-                ]
-            },
-            {
-                "id": "web",
-                "path": "gen/gen4web",
-                "sources": [
-                    "web"
+                    "main"
                 ]
             },
             {
                 "id": "test",
-                "path": "gen/gen4test",
+                "path": "gen/gen4ggsecuritytest",
                 "sources": [
                     "test"
                 ]

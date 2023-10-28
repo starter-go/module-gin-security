@@ -1,4 +1,4 @@
-package main
+package golang
 
 import (
 	"os"
@@ -9,6 +9,6 @@ import (
 
 func main() {
 	i := starter.Init(os.Args)
-	i.MainModule(securitygingorm.ModuleForTest())
+	i.MainModule(securitygingorm.Module())
 	i.WithPanic(true).Run()
 }
