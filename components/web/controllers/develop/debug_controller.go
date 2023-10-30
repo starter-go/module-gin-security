@@ -1,13 +1,14 @@
-package home
+package develop
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/starter-go/application"
 	"github.com/starter-go/libgin"
 	"github.com/starter-go/security/rbac"
 )
 
-// ExampleVO ...
-type ExampleVO struct {
+// DebugVO ...
+type DebugVO struct {
 	rbac.BaseVO
 
 	Items []*rbac.PermissionDTO `json:"items"`
@@ -15,8 +16,8 @@ type ExampleVO struct {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-// ExampleController ...
-type ExampleController struct {
+// DebugController ...
+type DebugController struct {
 
 	//starter:component()
 	_as func(libgin.Controller) //starter:as(".")
@@ -26,20 +27,36 @@ type ExampleController struct {
 
 }
 
-func (inst *ExampleController) _impl() {
+func (inst *DebugController) _impl(a application.Lifecycle) {
 	inst._as(inst)
+	a = inst
 }
 
-// Registration ...
-func (inst *ExampleController) Registration() *libgin.ControllerRegistration {
-	return &libgin.ControllerRegistration{
-		Groups: nil,
-		// Route:  inst.route,
+// Life ...
+func (inst *DebugController) Life() *application.Life {
+	return &application.Life{
+		OnStart: inst.onStart,
 	}
 }
 
-func (inst *ExampleController) route(g libgin.RouterProxy) error {
-	g = g.For("Example")
+func (inst *DebugController) onStart() error {
+
+	cache := inst.Service.GetCache()
+	cache.Clear()
+
+	return nil
+}
+
+// Registration ...
+func (inst *DebugController) Registration() *libgin.ControllerRegistration {
+	return &libgin.ControllerRegistration{
+		Groups: []string{"develop"},
+		Route:  inst.route,
+	}
+}
+
+func (inst *DebugController) route(g libgin.RouterProxy) error {
+	g = g.For("debug")
 	g.GET("", inst.handleGetList)
 	g.GET(":id", inst.handleGetOne)
 	g.PUT(":id", inst.handleUpdate)
@@ -48,7 +65,7 @@ func (inst *ExampleController) route(g libgin.RouterProxy) error {
 	return nil
 }
 
-func (inst *ExampleController) execute(req *myExampleRequest, fn func() error) {
+func (inst *DebugController) execute(req *myDebugRequest, fn func() error) {
 	err := req.open()
 	if err == nil {
 		err = fn()
@@ -56,8 +73,8 @@ func (inst *ExampleController) execute(req *myExampleRequest, fn func() error) {
 	req.send(err)
 }
 
-func (inst *ExampleController) handleGetList(c *gin.Context) {
-	req := &myExampleRequest{
+func (inst *DebugController) handleGetList(c *gin.Context) {
+	req := &myDebugRequest{
 		controller:      inst,
 		context:         c,
 		wantRequestBody: false,
@@ -67,8 +84,8 @@ func (inst *ExampleController) handleGetList(c *gin.Context) {
 	inst.execute(req, req.doGetList)
 }
 
-func (inst *ExampleController) handleGetOne(c *gin.Context) {
-	req := &myExampleRequest{
+func (inst *DebugController) handleGetOne(c *gin.Context) {
+	req := &myDebugRequest{
 		controller:      inst,
 		context:         c,
 		wantRequestBody: false,
@@ -78,8 +95,8 @@ func (inst *ExampleController) handleGetOne(c *gin.Context) {
 	inst.execute(req, req.doGetOne)
 }
 
-func (inst *ExampleController) handleInsert(c *gin.Context) {
-	req := &myExampleRequest{
+func (inst *DebugController) handleInsert(c *gin.Context) {
+	req := &myDebugRequest{
 		controller:      inst,
 		context:         c,
 		wantRequestBody: false,
@@ -89,8 +106,8 @@ func (inst *ExampleController) handleInsert(c *gin.Context) {
 	inst.execute(req, req.doInsert)
 }
 
-func (inst *ExampleController) handleUpdate(c *gin.Context) {
-	req := &myExampleRequest{
+func (inst *DebugController) handleUpdate(c *gin.Context) {
+	req := &myDebugRequest{
 		controller:      inst,
 		context:         c,
 		wantRequestBody: false,
@@ -100,8 +117,8 @@ func (inst *ExampleController) handleUpdate(c *gin.Context) {
 	inst.execute(req, req.doUpdate)
 }
 
-func (inst *ExampleController) handleRemove(c *gin.Context) {
-	req := &myExampleRequest{
+func (inst *DebugController) handleRemove(c *gin.Context) {
+	req := &myDebugRequest{
 		controller:      inst,
 		context:         c,
 		wantRequestBody: false,
@@ -113,9 +130,9 @@ func (inst *ExampleController) handleRemove(c *gin.Context) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type myExampleRequest struct {
+type myDebugRequest struct {
 	// contexts
-	controller *ExampleController
+	controller *DebugController
 	context    *gin.Context
 
 	// flags
@@ -130,11 +147,11 @@ type myExampleRequest struct {
 	roles      rbac.RoleNameList
 
 	// body
-	body1 ExampleVO
-	body2 ExampleVO
+	body1 DebugVO
+	body2 DebugVO
 }
 
-func (inst *myExampleRequest) open() error {
+func (inst *myDebugRequest) open() error {
 
 	c := inst.context
 
@@ -148,7 +165,7 @@ func (inst *myExampleRequest) open() error {
 	return nil
 }
 
-func (inst *myExampleRequest) send(err error) {
+func (inst *myDebugRequest) send(err error) {
 	resp := &libgin.Response{}
 	resp.Data = &inst.body2
 	resp.Context = inst.context
@@ -157,23 +174,23 @@ func (inst *myExampleRequest) send(err error) {
 	inst.controller.Responder.Send(resp)
 }
 
-func (inst *myExampleRequest) doGetList() error {
+func (inst *myDebugRequest) doGetList() error {
 	return nil
 }
 
-func (inst *myExampleRequest) doGetOne() error {
+func (inst *myDebugRequest) doGetOne() error {
 	return nil
 }
 
-func (inst *myExampleRequest) doInsert() error {
+func (inst *myDebugRequest) doInsert() error {
 	return nil
 }
 
-func (inst *myExampleRequest) doUpdate() error {
+func (inst *myDebugRequest) doUpdate() error {
 	return nil
 }
 
-func (inst *myExampleRequest) doRemove() error {
+func (inst *myDebugRequest) doRemove() error {
 	return nil
 }
 

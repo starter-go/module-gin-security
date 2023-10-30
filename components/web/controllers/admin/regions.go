@@ -9,52 +9,51 @@ import (
 	"github.com/starter-go/security/rbac"
 )
 
-// PermissionVO ...
-type PermissionVO struct {
+// RegionVO ...
+type RegionVO struct {
 	rbac.BaseVO
 
-	Permissions []*rbac.PermissionDTO `json:"permissions"`
+	Regions []*rbac.RegionDTO `json:"regions"`
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
-// PermissionController ...
-type PermissionController struct {
+// RegionController ...
+type RegionController struct {
 
 	//starter:component()
 	_as func(libgin.Controller) //starter:as(".")
 
-	Responder libgin.Responder       //starter:inject("#")
-	Service   rbac.PermissionService //starter:inject("#")
+	Responder libgin.Responder   //starter:inject("#")
+	Service   rbac.RegionService //starter:inject("#")
 
 }
 
-func (inst *PermissionController) _impl() {
+func (inst *RegionController) _impl() {
 	inst._as(inst)
 }
 
 // Registration ...
-func (inst *PermissionController) Registration() *libgin.ControllerRegistration {
+func (inst *RegionController) Registration() *libgin.ControllerRegistration {
 	return &libgin.ControllerRegistration{
 		Route:  inst.route,
 		Groups: []string{"admin"},
 	}
 }
 
-func (inst *PermissionController) route(g libgin.RouterProxy) error {
-	g = g.For("permissions")
+func (inst *RegionController) route(g libgin.RouterProxy) error {
+	g = g.For("regions")
 
 	g.GET("", inst.handleGetList)
 	g.GET(":id", inst.handleGetOne)
 	g.PUT(":id", inst.handleUpdate)
 	g.DELETE(":id", inst.handleRemove)
 	g.POST("", inst.handleInsert)
-	g.POST("apply", inst.handleApply)
 
 	return nil
 }
 
-func (inst *PermissionController) execute(req *myPermissionRequest, fn func() error) {
+func (inst *RegionController) execute(req *myRegionRequest, fn func() error) {
 	err := req.open()
 	if err == nil {
 		err = fn()
@@ -62,19 +61,19 @@ func (inst *PermissionController) execute(req *myPermissionRequest, fn func() er
 	req.send(err)
 }
 
-func (inst *PermissionController) handleGetList(c *gin.Context) {
-	req := &myPermissionRequest{
+func (inst *RegionController) handleGetList(c *gin.Context) {
+	req := &myRegionRequest{
 		controller:      inst,
 		context:         c,
 		wantRequestBody: false,
-		wantRequestPage: true,
 		wantRequestID:   false,
+		wantRequestPage: true,
 	}
 	inst.execute(req, req.doGetList)
 }
 
-func (inst *PermissionController) handleGetOne(c *gin.Context) {
-	req := &myPermissionRequest{
+func (inst *RegionController) handleGetOne(c *gin.Context) {
+	req := &myRegionRequest{
 		controller:      inst,
 		context:         c,
 		wantRequestBody: false,
@@ -84,8 +83,8 @@ func (inst *PermissionController) handleGetOne(c *gin.Context) {
 	inst.execute(req, req.doGetOne)
 }
 
-func (inst *PermissionController) handleInsert(c *gin.Context) {
-	req := &myPermissionRequest{
+func (inst *RegionController) handleInsert(c *gin.Context) {
+	req := &myRegionRequest{
 		controller:      inst,
 		context:         c,
 		wantRequestBody: true,
@@ -95,19 +94,8 @@ func (inst *PermissionController) handleInsert(c *gin.Context) {
 	inst.execute(req, req.doInsert)
 }
 
-func (inst *PermissionController) handleApply(c *gin.Context) {
-	req := &myPermissionRequest{
-		controller:      inst,
-		context:         c,
-		wantRequestBody: true,
-		wantRequestPage: false,
-		wantRequestID:   false,
-	}
-	inst.execute(req, req.doApply)
-}
-
-func (inst *PermissionController) handleUpdate(c *gin.Context) {
-	req := &myPermissionRequest{
+func (inst *RegionController) handleUpdate(c *gin.Context) {
+	req := &myRegionRequest{
 		controller:      inst,
 		context:         c,
 		wantRequestBody: true,
@@ -117,8 +105,8 @@ func (inst *PermissionController) handleUpdate(c *gin.Context) {
 	inst.execute(req, req.doUpdate)
 }
 
-func (inst *PermissionController) handleRemove(c *gin.Context) {
-	req := &myPermissionRequest{
+func (inst *RegionController) handleRemove(c *gin.Context) {
+	req := &myRegionRequest{
 		controller:      inst,
 		context:         c,
 		wantRequestBody: false,
@@ -130,9 +118,9 @@ func (inst *PermissionController) handleRemove(c *gin.Context) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type myPermissionRequest struct {
+type myRegionRequest struct {
 	// contexts
-	controller *PermissionController
+	controller *RegionController
 	context    *gin.Context
 
 	// flags
@@ -142,16 +130,16 @@ type myPermissionRequest struct {
 	wantRequestRBAC bool
 
 	// params
-	id         rbac.PermissionID
+	id         rbac.RegionID
 	pagination rbac.Pagination
 	roles      rbac.RoleNameList
 
 	// body
-	body1 PermissionVO
-	body2 PermissionVO
+	body1 RegionVO
+	body2 RegionVO
 }
 
-func (inst *myPermissionRequest) open() error {
+func (inst *myRegionRequest) open() error {
 
 	c := inst.context
 
@@ -168,7 +156,7 @@ func (inst *myPermissionRequest) open() error {
 		if err != nil {
 			return err
 		}
-		inst.id = rbac.PermissionID(n)
+		inst.id = rbac.RegionID(n)
 	}
 
 	if inst.wantRequestPage {
@@ -178,7 +166,7 @@ func (inst *myPermissionRequest) open() error {
 	return nil
 }
 
-func (inst *myPermissionRequest) send(err error) {
+func (inst *myRegionRequest) send(err error) {
 	resp := &libgin.Response{}
 	resp.Data = &inst.body2
 	resp.Context = inst.context
@@ -187,23 +175,22 @@ func (inst *myPermissionRequest) send(err error) {
 	inst.controller.Responder.Send(resp)
 }
 
-func (inst *myPermissionRequest) doGetList() error {
+func (inst *myRegionRequest) doGetList() error {
 	ctx := inst.context
 	ser := inst.controller.Service
-	page := &rbac.Pagination{}
-	q := &rbac.PermissionQuery{}
-	q.Pagination = inst.pagination
+	page := &inst.pagination
+	q := &rbac.RegionQuery{}
+	q.Pagination = *page
 	list, err := ser.List(ctx, q)
 	if err != nil {
 		return err
 	}
-	*page = q.Pagination
-	inst.body2.Permissions = list
+	inst.body2.Regions = list
 	inst.body2.Pagination = page
 	return nil
 }
 
-func (inst *myPermissionRequest) doGetOne() error {
+func (inst *myRegionRequest) doGetOne() error {
 	ctx := inst.context
 	ser := inst.controller.Service
 	id := inst.id
@@ -211,14 +198,14 @@ func (inst *myPermissionRequest) doGetOne() error {
 	if err != nil {
 		return err
 	}
-	inst.body2.Permissions = []*rbac.PermissionDTO{o1}
+	inst.body2.Regions = []*rbac.RegionDTO{o1}
 	return nil
 }
 
-func (inst *myPermissionRequest) doInsert() error {
+func (inst *myRegionRequest) doInsert() error {
 	ctx := inst.context
 	ser := inst.controller.Service
-	o1, err := controllers.GetItemOnlyOne[rbac.PermissionDTO](inst.body1.Permissions)
+	o1, err := controllers.GetItemOnlyOne[rbac.RegionDTO](inst.body1.Regions)
 	if err != nil {
 		return err
 	}
@@ -226,22 +213,15 @@ func (inst *myPermissionRequest) doInsert() error {
 	if err != nil {
 		return err
 	}
-	inst.body2.Permissions = []*rbac.PermissionDTO{o2}
+	inst.body2.Regions = []*rbac.RegionDTO{o2}
 	return nil
 }
 
-func (inst *myPermissionRequest) doApply() error {
-	// ctx := inst.context
-	ser := inst.controller.Service
-	ser.GetCache().Clear()
-	return nil
-}
-
-func (inst *myPermissionRequest) doUpdate() error {
+func (inst *myRegionRequest) doUpdate() error {
 	ctx := inst.context
 	ser := inst.controller.Service
 	id := inst.id
-	o1, err := controllers.GetItemOnlyOne[rbac.PermissionDTO](inst.body1.Permissions)
+	o1, err := controllers.GetItemOnlyOne[rbac.RegionDTO](inst.body1.Regions)
 	if err != nil {
 		return err
 	}
@@ -249,11 +229,11 @@ func (inst *myPermissionRequest) doUpdate() error {
 	if err != nil {
 		return err
 	}
-	inst.body2.Permissions = []*rbac.PermissionDTO{o2}
+	inst.body2.Regions = []*rbac.RegionDTO{o2}
 	return nil
 }
 
-func (inst *myPermissionRequest) doRemove() error {
+func (inst *myRegionRequest) doRemove() error {
 	ctx := inst.context
 	ser := inst.controller.Service
 	id := inst.id

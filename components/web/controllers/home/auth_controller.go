@@ -47,12 +47,13 @@ func (inst *AuthController) Registration() *libgin.ControllerRegistration {
 func (inst *AuthController) route(g libgin.RouterProxy) error {
 	g = g.For("auth")
 
-	g.POST("", inst.handleSignIn)                      // 'sign-in' 的简要别名
-	g.POST("sign-in", inst.handleSignIn)               // 登录
-	g.POST("sign-up", inst.handleSignUp)               // 注册
-	g.POST("set-password", inst.handleSetPassword)     // 修改密码
-	g.POST("reset-password", inst.handleResetPassword) // 重设密码
-	g.POST("send-code", inst.handleSendCode)           // 发送验证码
+	g.POST("", inst.handleSignIn)                                     // 'sign-in' 的简要别名
+	g.POST("sign-in", inst.handleSignIn)                              // 登录
+	g.POST("sign-up", inst.handleSignUp)                              // 注册
+	g.POST("set-password", inst.handleSetPassword)                    // 修改密码
+	g.POST("reset-password", inst.handleResetPassword)                // 重设密码
+	g.POST("send-verification-mail", inst.handleSendVerificationMail) // 发送验证码(通过邮件)
+	g.POST("send-verification-sms", inst.handleSendVerificationSMS)   // 发送验证码(通过短信)
 
 	return nil
 }
@@ -83,13 +84,22 @@ func (inst *AuthController) handleSignUp(c *gin.Context) {
 	inst.execute(req, req.doSignUp)
 }
 
-func (inst *AuthController) handleSendCode(c *gin.Context) {
+func (inst *AuthController) handleSendVerificationMail(c *gin.Context) {
 	req := &myAuthRequest{
 		controller:      inst,
 		context:         c,
 		wantRequestBody: true,
 	}
-	inst.execute(req, req.doSendCode)
+	inst.execute(req, req.doSendMail)
+}
+
+func (inst *AuthController) handleSendVerificationSMS(c *gin.Context) {
+	req := &myAuthRequest{
+		controller:      inst,
+		context:         c,
+		wantRequestBody: true,
+	}
+	inst.execute(req, req.doSendSMS)
 }
 
 func (inst *AuthController) handleSetPassword(c *gin.Context) {
@@ -174,7 +184,16 @@ func (inst *myAuthRequest) doLogin() error {
 	return err
 }
 
-func (inst *myAuthRequest) doSendCode() error {
+func (inst *myAuthRequest) doSendMail() error {
+	ctx := inst.context
+	a1 := &inst.body1.Auth
+	a1.Action = auth.ActionSendCode
+	alist := []*rbac.AuthDTO{a1}
+	err := inst.controller.AuthSer.Handle(ctx, alist)
+	return err
+}
+
+func (inst *myAuthRequest) doSendSMS() error {
 	ctx := inst.context
 	a1 := &inst.body1.Auth
 	a1.Action = auth.ActionSendCode

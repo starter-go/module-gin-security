@@ -1,4 +1,4 @@
-package home
+package develop
 
 import (
 	"github.com/gin-gonic/gin"
@@ -33,8 +33,8 @@ func (inst *ExampleController) _impl() {
 // Registration ...
 func (inst *ExampleController) Registration() *libgin.ControllerRegistration {
 	return &libgin.ControllerRegistration{
-		Groups: nil,
-		// Route:  inst.route,
+		Groups: []string{"develop"},
+		Route:  inst.route,
 	}
 }
 

@@ -30,14 +30,18 @@ func (inst *autoRegistrar) register(factory comFactory) error {
 func (inst*autoRegistrar) addAll() error {
 
     
+    inst.register(&p13ed4c221a_develop_DebugController{})
+    inst.register(&p13ed4c221a_develop_ExampleController{})
     inst.register(&p736bdaa375_home_AuthController{})
     inst.register(&p736bdaa375_home_ExampleController{})
     inst.register(&p736bdaa375_home_PermissionController{})
+    inst.register(&p736bdaa375_home_RegionController{})
     inst.register(&p736bdaa375_home_RoleController{})
     inst.register(&p736bdaa375_home_SessionController{})
     inst.register(&p736bdaa375_home_TokenController{})
     inst.register(&p736bdaa375_home_UserController{})
     inst.register(&pef5fb8e156_admin_PermissionController{})
+    inst.register(&pef5fb8e156_admin_RegionController{})
     inst.register(&pef5fb8e156_admin_RoleController{})
     inst.register(&pef5fb8e156_admin_UserController{})
 
