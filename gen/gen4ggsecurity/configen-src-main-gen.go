@@ -1,13 +1,290 @@
 package gen4ggsecurity
 import (
     pd1a916a20 "github.com/starter-go/libgin"
+    p6a34f6f22 "github.com/starter-go/module-email/mails"
+    pf48f932fb "github.com/starter-go/module-security-gin-gorm/components/auth/auth1/email"
+    pd4be75b3b "github.com/starter-go/module-security-gin-gorm/components/auth/auth1/sms"
+    pbd5217dfa "github.com/starter-go/module-security-gin-gorm/components/auth/auth1/vericode"
+    pdc51ff5e4 "github.com/starter-go/module-security-gin-gorm/components/auth/auth2/login"
+    p7f9a7d1cf "github.com/starter-go/module-security-gin-gorm/components/auth/auth2/signup"
+    p8e41bd317 "github.com/starter-go/module-security-gin-gorm/components/services"
     pef5fb8e15 "github.com/starter-go/module-security-gin-gorm/components/web/controllers/admin"
     p13ed4c221 "github.com/starter-go/module-security-gin-gorm/components/web/controllers/develop"
     p736bdaa37 "github.com/starter-go/module-security-gin-gorm/components/web/controllers/home"
+    pf5d2c6fae "github.com/starter-go/security-gorm/rbacdb"
     p91f218d46 "github.com/starter-go/security/jwt"
+    p9621e8b71 "github.com/starter-go/security/random"
     p2dece1e49 "github.com/starter-go/security/rbac"
      "github.com/starter-go/application"
 )
+
+// type pf48f932fb.AuthByEmail in package:github.com/starter-go/module-security-gin-gorm/components/auth/auth1/email
+//
+// id:com-f48f932fb4a915f5-email-AuthByEmail
+// class:class-9d209f7c2504d33e6054a2c9998e9485-Registry
+// alias:
+// scope:singleton
+//
+type pf48f932fb4_email_AuthByEmail struct {
+}
+
+func (inst* pf48f932fb4_email_AuthByEmail) register(cr application.ComponentRegistry) error {
+	r := cr.NewRegistration()
+	r.ID = "com-f48f932fb4a915f5-email-AuthByEmail"
+	r.Classes = "class-9d209f7c2504d33e6054a2c9998e9485-Registry"
+	r.Aliases = ""
+	r.Scope = "singleton"
+	r.NewFunc = inst.new
+	r.InjectFunc = inst.inject
+	return r.Commit()
+}
+
+func (inst* pf48f932fb4_email_AuthByEmail) new() any {
+    return &pf48f932fb.AuthByEmail{}
+}
+
+func (inst* pf48f932fb4_email_AuthByEmail) inject(injext application.InjectionExt, instance any) error {
+	ie := injext
+	com := instance.(*pf48f932fb.AuthByEmail)
+	nop(ie, com)
+
+	
+    com.VerificationService = inst.getVerificationService(ie)
+
+
+    return nil
+}
+
+
+func (inst*pf48f932fb4_email_AuthByEmail) getVerificationService(ie application.InjectionExt)p8e41bd317.VerificationService{
+    return ie.GetComponent("#alias-8e41bd317406e4801e90c494ff828ee2-VerificationService").(p8e41bd317.VerificationService)
+}
+
+
+
+// type pd4be75b3b.AuthBySMS in package:github.com/starter-go/module-security-gin-gorm/components/auth/auth1/sms
+//
+// id:com-d4be75b3b4baaa69-sms-AuthBySMS
+// class:class-9d209f7c2504d33e6054a2c9998e9485-Registry
+// alias:
+// scope:singleton
+//
+type pd4be75b3b4_sms_AuthBySMS struct {
+}
+
+func (inst* pd4be75b3b4_sms_AuthBySMS) register(cr application.ComponentRegistry) error {
+	r := cr.NewRegistration()
+	r.ID = "com-d4be75b3b4baaa69-sms-AuthBySMS"
+	r.Classes = "class-9d209f7c2504d33e6054a2c9998e9485-Registry"
+	r.Aliases = ""
+	r.Scope = "singleton"
+	r.NewFunc = inst.new
+	r.InjectFunc = inst.inject
+	return r.Commit()
+}
+
+func (inst* pd4be75b3b4_sms_AuthBySMS) new() any {
+    return &pd4be75b3b.AuthBySMS{}
+}
+
+func (inst* pd4be75b3b4_sms_AuthBySMS) inject(injext application.InjectionExt, instance any) error {
+	ie := injext
+	com := instance.(*pd4be75b3b.AuthBySMS)
+	nop(ie, com)
+
+	
+    com.VerificationService = inst.getVerificationService(ie)
+
+
+    return nil
+}
+
+
+func (inst*pd4be75b3b4_sms_AuthBySMS) getVerificationService(ie application.InjectionExt)p8e41bd317.VerificationService{
+    return ie.GetComponent("#alias-8e41bd317406e4801e90c494ff828ee2-VerificationService").(p8e41bd317.VerificationService)
+}
+
+
+
+// type pbd5217dfa.VerificationServiceImpl in package:github.com/starter-go/module-security-gin-gorm/components/auth/auth1/vericode
+//
+// id:com-bd5217dfaec2d26c-vericode-VerificationServiceImpl
+// class:
+// alias:alias-8e41bd317406e4801e90c494ff828ee2-VerificationService
+// scope:singleton
+//
+type pbd5217dfae_vericode_VerificationServiceImpl struct {
+}
+
+func (inst* pbd5217dfae_vericode_VerificationServiceImpl) register(cr application.ComponentRegistry) error {
+	r := cr.NewRegistration()
+	r.ID = "com-bd5217dfaec2d26c-vericode-VerificationServiceImpl"
+	r.Classes = ""
+	r.Aliases = "alias-8e41bd317406e4801e90c494ff828ee2-VerificationService"
+	r.Scope = "singleton"
+	r.NewFunc = inst.new
+	r.InjectFunc = inst.inject
+	return r.Commit()
+}
+
+func (inst* pbd5217dfae_vericode_VerificationServiceImpl) new() any {
+    return &pbd5217dfa.VerificationServiceImpl{}
+}
+
+func (inst* pbd5217dfae_vericode_VerificationServiceImpl) inject(injext application.InjectionExt, instance any) error {
+	ie := injext
+	com := instance.(*pbd5217dfa.VerificationServiceImpl)
+	nop(ie, com)
+
+	
+    com.Sender = inst.getSender(ie)
+    com.JWT = inst.getJWT(ie)
+    com.UUIDService = inst.getUUIDService(ie)
+    com.SenderFromSMS = inst.getSenderFromSMS(ie)
+    com.SenderFromMail = inst.getSenderFromMail(ie)
+    com.TokenMaxAgeInMS = inst.getTokenMaxAgeInMS(ie)
+
+
+    return nil
+}
+
+
+func (inst*pbd5217dfae_vericode_VerificationServiceImpl) getSender(ie application.InjectionExt)p6a34f6f22.Service{
+    return ie.GetComponent("#alias-6a34f6f2249275109e9baea3c805a883-Service").(p6a34f6f22.Service)
+}
+
+
+func (inst*pbd5217dfae_vericode_VerificationServiceImpl) getJWT(ie application.InjectionExt)p91f218d46.Service{
+    return ie.GetComponent("#alias-91f218d46ec21cd234778bbe54aecc66-Service").(p91f218d46.Service)
+}
+
+
+func (inst*pbd5217dfae_vericode_VerificationServiceImpl) getUUIDService(ie application.InjectionExt)p9621e8b71.UUIDService{
+    return ie.GetComponent("#alias-9621e8b71013b0fc25942a1749ed3652-UUIDService").(p9621e8b71.UUIDService)
+}
+
+
+func (inst*pbd5217dfae_vericode_VerificationServiceImpl) getSenderFromSMS(ie application.InjectionExt)string{
+    return ie.GetString("${security.verification-code-sender.sms.from}")
+}
+
+
+func (inst*pbd5217dfae_vericode_VerificationServiceImpl) getSenderFromMail(ie application.InjectionExt)string{
+    return ie.GetString("${security.verification-code-sender.mail.from}")
+}
+
+
+func (inst*pbd5217dfae_vericode_VerificationServiceImpl) getTokenMaxAgeInMS(ie application.InjectionExt)int64{
+    return ie.GetInt64("${security.verification-code-token.max-age.ms}")
+}
+
+
+
+// type pdc51ff5e4.AuthorizerForLogin in package:github.com/starter-go/module-security-gin-gorm/components/auth/auth2/login
+//
+// id:com-dc51ff5e4d3745d8-login-AuthorizerForLogin
+// class:class-9d209f7c2504d33e6054a2c9998e9485-Registry
+// alias:
+// scope:singleton
+//
+type pdc51ff5e4d_login_AuthorizerForLogin struct {
+}
+
+func (inst* pdc51ff5e4d_login_AuthorizerForLogin) register(cr application.ComponentRegistry) error {
+	r := cr.NewRegistration()
+	r.ID = "com-dc51ff5e4d3745d8-login-AuthorizerForLogin"
+	r.Classes = "class-9d209f7c2504d33e6054a2c9998e9485-Registry"
+	r.Aliases = ""
+	r.Scope = "singleton"
+	r.NewFunc = inst.new
+	r.InjectFunc = inst.inject
+	return r.Commit()
+}
+
+func (inst* pdc51ff5e4d_login_AuthorizerForLogin) new() any {
+    return &pdc51ff5e4.AuthorizerForLogin{}
+}
+
+func (inst* pdc51ff5e4d_login_AuthorizerForLogin) inject(injext application.InjectionExt, instance any) error {
+	ie := injext
+	com := instance.(*pdc51ff5e4.AuthorizerForLogin)
+	nop(ie, com)
+
+	
+    com.JWT = inst.getJWT(ie)
+
+
+    return nil
+}
+
+
+func (inst*pdc51ff5e4d_login_AuthorizerForLogin) getJWT(ie application.InjectionExt)p91f218d46.Service{
+    return ie.GetComponent("#alias-91f218d46ec21cd234778bbe54aecc66-Service").(p91f218d46.Service)
+}
+
+
+
+// type p7f9a7d1cf.AuthorizerForSignUp in package:github.com/starter-go/module-security-gin-gorm/components/auth/auth2/signup
+//
+// id:com-7f9a7d1cfc2f8e9e-signup-AuthorizerForSignUp
+// class:class-9d209f7c2504d33e6054a2c9998e9485-Registry
+// alias:
+// scope:singleton
+//
+type p7f9a7d1cfc_signup_AuthorizerForSignUp struct {
+}
+
+func (inst* p7f9a7d1cfc_signup_AuthorizerForSignUp) register(cr application.ComponentRegistry) error {
+	r := cr.NewRegistration()
+	r.ID = "com-7f9a7d1cfc2f8e9e-signup-AuthorizerForSignUp"
+	r.Classes = "class-9d209f7c2504d33e6054a2c9998e9485-Registry"
+	r.Aliases = ""
+	r.Scope = "singleton"
+	r.NewFunc = inst.new
+	r.InjectFunc = inst.inject
+	return r.Commit()
+}
+
+func (inst* p7f9a7d1cfc_signup_AuthorizerForSignUp) new() any {
+    return &p7f9a7d1cf.AuthorizerForSignUp{}
+}
+
+func (inst* p7f9a7d1cfc_signup_AuthorizerForSignUp) inject(injext application.InjectionExt, instance any) error {
+	ie := injext
+	com := instance.(*p7f9a7d1cf.AuthorizerForSignUp)
+	nop(ie, com)
+
+	
+    com.UserDAO = inst.getUserDAO(ie)
+    com.PhoneDAO = inst.getPhoneDAO(ie)
+    com.EmailDAO = inst.getEmailDAO(ie)
+    com.Agent = inst.getAgent(ie)
+
+
+    return nil
+}
+
+
+func (inst*p7f9a7d1cfc_signup_AuthorizerForSignUp) getUserDAO(ie application.InjectionExt)pf5d2c6fae.UserDAO{
+    return ie.GetComponent("#alias-f5d2c6fae036814399fa2ed06c0dc99f-UserDAO").(pf5d2c6fae.UserDAO)
+}
+
+
+func (inst*p7f9a7d1cfc_signup_AuthorizerForSignUp) getPhoneDAO(ie application.InjectionExt)pf5d2c6fae.PhoneNumberDAO{
+    return ie.GetComponent("#alias-f5d2c6fae036814399fa2ed06c0dc99f-PhoneNumberDAO").(pf5d2c6fae.PhoneNumberDAO)
+}
+
+
+func (inst*p7f9a7d1cfc_signup_AuthorizerForSignUp) getEmailDAO(ie application.InjectionExt)pf5d2c6fae.EmailAddressDAO{
+    return ie.GetComponent("#alias-f5d2c6fae036814399fa2ed06c0dc99f-EmailAddressDAO").(pf5d2c6fae.EmailAddressDAO)
+}
+
+
+func (inst*p7f9a7d1cfc_signup_AuthorizerForSignUp) getAgent(ie application.InjectionExt)pf5d2c6fae.LocalAgent{
+    return ie.GetComponent("#alias-f5d2c6fae036814399fa2ed06c0dc99f-LocalAgent").(pf5d2c6fae.LocalAgent)
+}
+
+
 
 // type pef5fb8e15.PermissionController in package:github.com/starter-go/module-security-gin-gorm/components/web/controllers/admin
 //

@@ -40,10 +40,15 @@ func (inst*autoRegistrar) addAll() error {
     inst.register(&p736bdaa375_home_SessionController{})
     inst.register(&p736bdaa375_home_TokenController{})
     inst.register(&p736bdaa375_home_UserController{})
+    inst.register(&p7f9a7d1cfc_signup_AuthorizerForSignUp{})
+    inst.register(&pbd5217dfae_vericode_VerificationServiceImpl{})
+    inst.register(&pd4be75b3b4_sms_AuthBySMS{})
+    inst.register(&pdc51ff5e4d_login_AuthorizerForLogin{})
     inst.register(&pef5fb8e156_admin_PermissionController{})
     inst.register(&pef5fb8e156_admin_RegionController{})
     inst.register(&pef5fb8e156_admin_RoleController{})
     inst.register(&pef5fb8e156_admin_UserController{})
+    inst.register(&pf48f932fb4_email_AuthByEmail{})
 
 
     return nil

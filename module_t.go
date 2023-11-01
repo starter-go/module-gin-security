@@ -6,6 +6,7 @@ import (
 	"github.com/starter-go/application"
 	"github.com/starter-go/libgin/modules/libgin"
 	"github.com/starter-go/libgorm/modules/libgorm"
+	moduleemail "github.com/starter-go/module-email"
 	modulegormmysql "github.com/starter-go/module-gorm-mysql"
 	modulegormsqlserver "github.com/starter-go/module-gorm-sqlserver"
 	"github.com/starter-go/security-gin/modules/securitygin"
@@ -40,6 +41,7 @@ func SrcMainModuleBuilder() *application.ModuleBuilder {
 	mb.Depend(libgorm.Module())
 	mb.Depend(securitygorm.Module())
 	mb.Depend(securitygin.Module())
+	mb.Depend(moduleemail.Module())
 
 	return mb
 }

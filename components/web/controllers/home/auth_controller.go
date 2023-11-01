@@ -169,54 +169,54 @@ func (inst *myAuthRequest) send(err error) {
 func (inst *myAuthRequest) doSignUp() error {
 	ctx := inst.context
 	a1 := &inst.body1.Auth
-	a1.Action = auth.ActionSignUp
+	action := auth.ActionSignUp
 	alist := []*rbac.AuthDTO{a1}
-	err := inst.controller.AuthSer.Handle(ctx, alist)
+	err := inst.controller.AuthSer.Handle(ctx, action, alist)
 	return err
 }
 
 func (inst *myAuthRequest) doLogin() error {
 	ctx := inst.context
 	a1 := &inst.body1.Auth
-	a1.Action = auth.ActionLogin
+	action := auth.ActionLogin
 	alist := []*rbac.AuthDTO{a1}
-	err := inst.controller.AuthSer.Handle(ctx, alist)
+	err := inst.controller.AuthSer.Handle(ctx, action, alist)
 	return err
 }
 
 func (inst *myAuthRequest) doSendMail() error {
 	ctx := inst.context
 	a1 := &inst.body1.Auth
-	a1.Action = auth.ActionSendCode
+	action := auth.ActionSendCode
 	alist := []*rbac.AuthDTO{a1}
-	err := inst.controller.AuthSer.Handle(ctx, alist)
+	err := inst.controller.AuthSer.Handle(ctx, action, alist)
 	return err
 }
 
 func (inst *myAuthRequest) doSendSMS() error {
 	ctx := inst.context
 	a1 := &inst.body1.Auth
-	a1.Action = auth.ActionSendCode
+	action := auth.ActionSendCode
 	alist := []*rbac.AuthDTO{a1}
-	err := inst.controller.AuthSer.Handle(ctx, alist)
+	err := inst.controller.AuthSer.Handle(ctx, action, alist)
 	return err
 }
 
 func (inst *myAuthRequest) doSetPassword() error {
 	ctx := inst.context
 	a1 := &inst.body1.Auth
-	a1.Action = auth.ActionChangePassword
+	action := auth.ActionChangePassword
 	alist := []*rbac.AuthDTO{a1}
-	err := inst.controller.AuthSer.Handle(ctx, alist)
+	err := inst.controller.AuthSer.Handle(ctx, action, alist)
 	return err
 }
 
 func (inst *myAuthRequest) doResetPassword() error {
 	ctx := inst.context
 	a1 := &inst.body1.Auth
-	a1.Action = auth.ActionResetPassword
+	action := auth.ActionResetPassword
 	alist := []*rbac.AuthDTO{a1}
-	err := inst.controller.AuthSer.Handle(ctx, alist)
+	err := inst.controller.AuthSer.Handle(ctx, action, alist)
 	return err
 }
 
