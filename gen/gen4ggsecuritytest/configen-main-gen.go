@@ -30,7 +30,7 @@ func (inst *autoRegistrar) register(factory comFactory) error {
 func (inst*autoRegistrar) addAll() error {
 
     
-    inst.register(&pae18fcf347_golang_Demo1Controller{})
+    inst.register(&p44c971931c_golang_Demo1Controller{})
 
 
     return nil
