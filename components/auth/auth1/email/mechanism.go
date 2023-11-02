@@ -3,7 +3,7 @@ package email
 import (
 	"strings"
 
-	"github.com/starter-go/module-security-gin-gorm/components/services"
+	"github.com/starter-go/security-gin-gorm/components/services"
 	"github.com/starter-go/security/auth"
 	"github.com/starter-go/security/rbac"
 )

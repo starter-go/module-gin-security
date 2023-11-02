@@ -14,7 +14,7 @@ import (
 	"github.com/starter-go/security/random"
 	"github.com/starter-go/vlog"
 
-	"github.com/starter-go/module-security-gin-gorm/components/services"
+	"github.com/starter-go/security-gin-gorm/components/services"
 )
 
 // VerificationServiceImpl ...

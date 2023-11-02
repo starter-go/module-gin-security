@@ -1,4 +1,4 @@
-package modulesecuritygingorm
+package securitygingorm
 
 import (
 	"embed"

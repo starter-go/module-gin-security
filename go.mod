@@ -1,4 +1,4 @@
-module github.com/starter-go/module-security-gin-gorm
+module github.com/starter-go/security-gin-gorm
 
 go 1.18
 
