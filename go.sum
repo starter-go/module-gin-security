@@ -237,6 +237,8 @@ github.com/starter-go/security-gorm v0.0.12 h1:mu6O4S/N6NQFAWYq+IY0MJgkjo4NqJbwC
 github.com/starter-go/security-gorm v0.0.12/go.mod h1:niF9GqLJAIoqlK5qhSLTPCjjcf0YdrX+j9mvTgJ2ULg=
 github.com/starter-go/security-gorm v0.0.13 h1:mvQI9j3pNpJlHpPMaMkI7aRu2YmHhtRAYsa9vnd7tHI=
 github.com/starter-go/security-gorm v0.0.13/go.mod h1:PEUSil9LUmEcYdLifmPUwAUc6c3gs1xrMYN2Ni+kyNk=
+github.com/starter-go/security-gorm v0.0.14 h1:3auWOPEG+xQCadEM/S4atH8ToD/ccBQfWx7JLaQzp5A=
+github.com/starter-go/security-gorm v0.0.14/go.mod h1:PEUSil9LUmEcYdLifmPUwAUc6c3gs1xrMYN2Ni+kyNk=
 github.com/starter-go/starter v1.0.1 h1:KdtrIOwzOm8C2NYnmjU87/EWGhXSHtl8Eb9cb16tDHs=
 github.com/starter-go/starter v1.0.1/go.mod h1:olnuzCYgV+/jOOm42qXx61GGEp/rYFPbO7NGWX13erA=
 github.com/starter-go/starter v1.0.2 h1:G42EqApRfhMuTtzTqsVShTD3xTYSStSyluNqRcjVw5M=
