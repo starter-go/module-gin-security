@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/starter-go/libgin"
+	"github.com/starter-go/security-gin-gorm/components/services"
 	"github.com/starter-go/security-gin-gorm/components/web/controllers"
 	"github.com/starter-go/security/rbac"
 )
@@ -24,8 +25,9 @@ type PermissionController struct {
 	//starter:component()
 	_as func(libgin.Controller) //starter:as(".")
 
-	Responder libgin.Responder       //starter:inject("#")
-	Service   rbac.PermissionService //starter:inject("#")
+	Responder     libgin.Responder                 //starter:inject("#")
+	Service       rbac.PermissionService           //starter:inject("#")
+	ImportService services.PermissionImportService //starter:inject("#")
 
 }
 
@@ -46,10 +48,13 @@ func (inst *PermissionController) route(g libgin.RouterProxy) error {
 
 	g.GET("", inst.handleGetList)
 	g.GET(":id", inst.handleGetOne)
+
 	g.PUT(":id", inst.handleUpdate)
 	g.DELETE(":id", inst.handleRemove)
+
 	g.POST("", inst.handleInsert)
 	g.POST("apply", inst.handleApply)
+	g.POST("import-from-resource", inst.handleImportFromResource)
 
 	return nil
 }
@@ -104,6 +109,17 @@ func (inst *PermissionController) handleApply(c *gin.Context) {
 		wantRequestID:   false,
 	}
 	inst.execute(req, req.doApply)
+}
+
+func (inst *PermissionController) handleImportFromResource(c *gin.Context) {
+	req := &myPermissionRequest{
+		controller:      inst,
+		context:         c,
+		wantRequestBody: true,
+		wantRequestPage: false,
+		wantRequestID:   false,
+	}
+	inst.execute(req, req.doImportFromResource)
 }
 
 func (inst *PermissionController) handleUpdate(c *gin.Context) {
@@ -235,6 +251,12 @@ func (inst *myPermissionRequest) doApply() error {
 	ser := inst.controller.Service
 	ser.GetCache().Clear()
 	return nil
+}
+
+func (inst *myPermissionRequest) doImportFromResource() error {
+	ctx := inst.context
+	ser := inst.controller.ImportService
+	return ser.ImportFromResource(ctx)
 }
 
 func (inst *myPermissionRequest) doUpdate() error {

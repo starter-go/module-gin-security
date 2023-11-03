@@ -1,5 +1,6 @@
 package gen4ggsecurity
 import (
+    p0ef6f2938 "github.com/starter-go/application"
     pd1a916a20 "github.com/starter-go/libgin"
     p6a34f6f22 "github.com/starter-go/module-email/mails"
     p4f3ce922c "github.com/starter-go/security-gin-gorm/components/auth/auth1/email"
@@ -286,6 +287,62 @@ func (inst*p04a90047b8_signup_AuthorizerForSignUp) getAgent(ie application.Injec
 
 
 
+// type p56e4dad45.PermissionImportServiceImpl in package:github.com/starter-go/security-gin-gorm/components/services
+//
+// id:com-56e4dad4531af2d8-services-PermissionImportServiceImpl
+// class:
+// alias:alias-56e4dad4531af2d8f160595779b3dfb6-PermissionImportService
+// scope:singleton
+//
+type p56e4dad453_services_PermissionImportServiceImpl struct {
+}
+
+func (inst* p56e4dad453_services_PermissionImportServiceImpl) register(cr application.ComponentRegistry) error {
+	r := cr.NewRegistration()
+	r.ID = "com-56e4dad4531af2d8-services-PermissionImportServiceImpl"
+	r.Classes = ""
+	r.Aliases = "alias-56e4dad4531af2d8f160595779b3dfb6-PermissionImportService"
+	r.Scope = "singleton"
+	r.NewFunc = inst.new
+	r.InjectFunc = inst.inject
+	return r.Commit()
+}
+
+func (inst* p56e4dad453_services_PermissionImportServiceImpl) new() any {
+    return &p56e4dad45.PermissionImportServiceImpl{}
+}
+
+func (inst* p56e4dad453_services_PermissionImportServiceImpl) inject(injext application.InjectionExt, instance any) error {
+	ie := injext
+	com := instance.(*p56e4dad45.PermissionImportServiceImpl)
+	nop(ie, com)
+
+	
+    com.AC = inst.getAC(ie)
+    com.PermService = inst.getPermService(ie)
+    com.ResPath = inst.getResPath(ie)
+
+
+    return nil
+}
+
+
+func (inst*p56e4dad453_services_PermissionImportServiceImpl) getAC(ie application.InjectionExt)p0ef6f2938.Context{
+    return ie.GetContext()
+}
+
+
+func (inst*p56e4dad453_services_PermissionImportServiceImpl) getPermService(ie application.InjectionExt)p2dece1e49.PermissionService{
+    return ie.GetComponent("#alias-2dece1e495fd61b93f78009d229f38cf-PermissionService").(p2dece1e49.PermissionService)
+}
+
+
+func (inst*p56e4dad453_services_PermissionImportServiceImpl) getResPath(ie application.InjectionExt)string{
+    return ie.GetString("${security.permissions.resource-file-path}")
+}
+
+
+
 // type p985949a7f.PermissionController in package:github.com/starter-go/security-gin-gorm/components/web/controllers/admin
 //
 // id:com-985949a7f73396fb-admin-PermissionController
@@ -319,6 +376,7 @@ func (inst* p985949a7f7_admin_PermissionController) inject(injext application.In
 	
     com.Responder = inst.getResponder(ie)
     com.Service = inst.getService(ie)
+    com.ImportService = inst.getImportService(ie)
 
 
     return nil
@@ -332,6 +390,11 @@ func (inst*p985949a7f7_admin_PermissionController) getResponder(ie application.I
 
 func (inst*p985949a7f7_admin_PermissionController) getService(ie application.InjectionExt)p2dece1e49.PermissionService{
     return ie.GetComponent("#alias-2dece1e495fd61b93f78009d229f38cf-PermissionService").(p2dece1e49.PermissionService)
+}
+
+
+func (inst*p985949a7f7_admin_PermissionController) getImportService(ie application.InjectionExt)p56e4dad45.PermissionImportService{
+    return ie.GetComponent("#alias-56e4dad4531af2d8f160595779b3dfb6-PermissionImportService").(p56e4dad45.PermissionImportService)
 }
 
 

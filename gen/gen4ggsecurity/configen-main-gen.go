@@ -41,6 +41,7 @@ func (inst*autoRegistrar) addAll() error {
     inst.register(&p16ea5b788f_home_UserController{})
     inst.register(&p492cd0c9ee_sms_AuthBySMS{})
     inst.register(&p4f3ce922c5_email_AuthByEmail{})
+    inst.register(&p56e4dad453_services_PermissionImportServiceImpl{})
     inst.register(&p775fb156f4_develop_DebugController{})
     inst.register(&p775fb156f4_develop_ExampleController{})
     inst.register(&p89ee959c3d_login_AuthorizerForLogin{})
