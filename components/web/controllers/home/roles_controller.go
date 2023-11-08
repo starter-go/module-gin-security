@@ -11,9 +11,9 @@ import (
 
 // RoleVO ...
 type RoleVO struct {
-	rbac.BaseVO
-
-	Roles []*rbac.RoleDTO `json:"roles"`
+	rbac.RoleVO
+	// rbac.BaseVO
+	// Roles []*rbac.RoleDTO `json:"roles"`
 }
 
 ////////////////////////////////////////////////////////////////////////////////

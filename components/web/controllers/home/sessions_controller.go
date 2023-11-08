@@ -9,9 +9,10 @@ import (
 
 // SessionVO ...
 type SessionVO struct {
-	rbac.BaseVO
+	rbac.SessionVO
 
-	Sessions []*rbac.SessionDTO `json:"sessions"`
+	// rbac.BaseVO
+	// Sessions []*rbac.SessionDTO `json:"sessions"`
 }
 
 ////////////////////////////////////////////////////////////////////////////////

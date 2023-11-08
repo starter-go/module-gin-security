@@ -11,9 +11,10 @@ import (
 
 // UserVO ...
 type UserVO struct {
-	rbac.BaseVO
+	rbac.UserVO
 
-	Users []*rbac.UserDTO `json:"users"`
+	// rbac.BaseVO
+	// Users []*rbac.UserDTO `json:"users"`
 }
 
 ////////////////////////////////////////////////////////////////////////////////

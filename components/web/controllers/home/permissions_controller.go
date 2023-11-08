@@ -11,9 +11,10 @@ import (
 
 // PermissionVO ...
 type PermissionVO struct {
-	rbac.BaseVO
+	rbac.PermissionVO
 
-	Permissions []*rbac.PermissionDTO `json:"permissions"`
+	// rbac.BaseVO
+	// Permissions []*rbac.PermissionDTO `json:"permissions"`
 }
 
 ////////////////////////////////////////////////////////////////////////////////

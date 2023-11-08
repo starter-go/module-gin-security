@@ -10,12 +10,15 @@ import (
 
 // AuthVO ...
 type AuthVO struct {
-	rbac.BaseVO
+	rbac.AuthVO
 
-	Auth        rbac.AuthDTO  `json:"auth"`         // 需要验证的内容
+	// rbac.BaseVO
+	// Auth        rbac.AuthDTO  `json:"auth"`         // 需要验证的内容
+
 	UserInfo    *rbac.UserDTO `json:"user"`         // 用户信息
 	NewPassword lang.Base64   `json:"new_password"` // 新的密码（用于注册，设置，重设密码）
 	Success     bool          `json:"success"`      // 是否完全成功
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -168,54 +171,48 @@ func (inst *myAuthRequest) send(err error) {
 
 func (inst *myAuthRequest) doSignUp() error {
 	ctx := inst.context
-	a1 := &inst.body1.Auth
+	alist := inst.body1.Auth
 	action := auth.ActionSignUp
-	alist := []*rbac.AuthDTO{a1}
 	err := inst.controller.AuthSer.Handle(ctx, action, alist)
 	return err
 }
 
 func (inst *myAuthRequest) doLogin() error {
 	ctx := inst.context
-	a1 := &inst.body1.Auth
 	action := auth.ActionLogin
-	alist := []*rbac.AuthDTO{a1}
+	alist := inst.body1.Auth
 	err := inst.controller.AuthSer.Handle(ctx, action, alist)
 	return err
 }
 
 func (inst *myAuthRequest) doSendMail() error {
 	ctx := inst.context
-	a1 := &inst.body1.Auth
 	action := auth.ActionSendCode
-	alist := []*rbac.AuthDTO{a1}
+	alist := inst.body1.Auth
 	err := inst.controller.AuthSer.Handle(ctx, action, alist)
 	return err
 }
 
 func (inst *myAuthRequest) doSendSMS() error {
 	ctx := inst.context
-	a1 := &inst.body1.Auth
 	action := auth.ActionSendCode
-	alist := []*rbac.AuthDTO{a1}
+	alist := inst.body1.Auth
 	err := inst.controller.AuthSer.Handle(ctx, action, alist)
 	return err
 }
 
 func (inst *myAuthRequest) doSetPassword() error {
 	ctx := inst.context
-	a1 := &inst.body1.Auth
 	action := auth.ActionChangePassword
-	alist := []*rbac.AuthDTO{a1}
+	alist := inst.body1.Auth
 	err := inst.controller.AuthSer.Handle(ctx, action, alist)
 	return err
 }
 
 func (inst *myAuthRequest) doResetPassword() error {
 	ctx := inst.context
-	a1 := &inst.body1.Auth
 	action := auth.ActionResetPassword
-	alist := []*rbac.AuthDTO{a1}
+	alist := inst.body1.Auth
 	err := inst.controller.AuthSer.Handle(ctx, action, alist)
 	return err
 }
