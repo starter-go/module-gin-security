@@ -3,6 +3,7 @@ package home
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/starter-go/libgin"
+	"github.com/starter-go/security-gin-gorm/components/web/controllers"
 	"github.com/starter-go/security/jwt"
 	"github.com/starter-go/security/rbac"
 )
@@ -212,6 +213,12 @@ func (inst *myTokenRequest) doRenew() error {
 	ctx := inst.context
 	ser := inst.controller.JWTService
 
+	// want
+	want, err := controllers.GetItemOnlyOne[rbac.TokenDTO](inst.body1.Tokens)
+	if err != nil {
+		return err
+	}
+
 	// older
 	t1, err := ser.GetDTO(ctx)
 	if err != nil {
@@ -221,6 +228,7 @@ func (inst *myTokenRequest) doRenew() error {
 	// newer
 	t2 := &jwt.Token{}
 	t2.Session = t1.Session
+	t2.ExpiredAt = want.ExpiredAt
 	err = ser.SetDTO(ctx, t2)
 	if err != nil {
 		return err
@@ -246,6 +254,7 @@ func (inst *myTokenRequest) doRemove() error {
 func (inst *myTokenRequest) castTokenInfo(src *jwt.Token, dst *rbac.TokenDTO) {
 	dst.CreatedAt = src.CreatedAt
 	dst.ExpiredAt = src.ExpiredAt
+	dst.MaxAge = src.MaxAge
 	dst.Session = &src.Session
 }
 

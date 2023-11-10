@@ -3,6 +3,7 @@ package home
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/starter-go/libgin"
+	"github.com/starter-go/security-gin-gorm/components/web/controllers"
 	"github.com/starter-go/security/jwt"
 	"github.com/starter-go/security/rbac"
 )
@@ -13,6 +14,7 @@ type SessionVO struct {
 
 	// rbac.BaseVO
 	// Sessions []*rbac.SessionDTO `json:"sessions"`
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -47,6 +49,7 @@ func (inst *SessionController) route(g libgin.RouterProxy) error {
 	g.PUT(":id", inst.handleUpdate)
 	g.DELETE(":id", inst.handleRemove)
 	g.POST("", inst.handleInsert)
+	g.POST("renew", inst.handleRenew)
 
 	return nil
 }
@@ -125,6 +128,17 @@ func (inst *SessionController) handleRemove(c *gin.Context) {
 	inst.execute(req, req.doRemove)
 }
 
+func (inst *SessionController) handleRenew(c *gin.Context) {
+	req := &mySessionRequest{
+		controller:      inst,
+		context:         c,
+		wantRequestBody: true,
+		wantRequestPage: false,
+		wantRequestID:   false,
+	}
+	inst.execute(req, req.doRenew)
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 
 type mySessionRequest struct {
@@ -201,6 +215,39 @@ func (inst *mySessionRequest) doUpdate() error {
 }
 
 func (inst *mySessionRequest) doRemove() error {
+	return nil
+}
+
+func (inst *mySessionRequest) doRenew() error {
+
+	ctx := inst.context
+	jwts := inst.controller.JWTService
+
+	// get from body
+	want, err := controllers.GetItemOnlyOne[rbac.SessionDTO](inst.body1.Sessions)
+	if err != nil {
+		return err
+	}
+
+	// get from jwt
+	have, err := jwts.GetDTO(ctx)
+	if err != nil {
+		return err
+	}
+
+	// update
+	have.Session.ExpiredAt = want.ExpiredAt
+	have.ExpiredAt = 0 // as default
+
+	// set
+	err = jwts.SetDTO(ctx, have)
+	if err != nil {
+		return err
+	}
+
+	session := &rbac.SessionDTO{}
+	*session = have.Session
+	inst.body2.Sessions = append(inst.body2.Sessions, session)
 	return nil
 }
 

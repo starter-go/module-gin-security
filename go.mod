@@ -30,15 +30,15 @@ require (
 	github.com/pelletier/go-toml/v2 v2.0.8 // indirect
 	github.com/starter-go/afs v0.9.2 // indirect
 	github.com/starter-go/application v0.9.15 // indirect
-	github.com/starter-go/base v0.9.9 // indirect
+	github.com/starter-go/base v0.9.10 // indirect
 	github.com/starter-go/configen v0.9.3 // indirect
 	github.com/starter-go/libgin v1.0.8 // indirect
 	github.com/starter-go/libgorm v0.9.11 // indirect
 	github.com/starter-go/module-email v0.0.1 // indirect
 	github.com/starter-go/module-gorm-sqlserver v0.9.11 // indirect
-	github.com/starter-go/security v1.0.39 // indirect
-	github.com/starter-go/security-gin v0.0.10 // indirect
-	github.com/starter-go/security-gorm v0.0.14 // indirect
+	github.com/starter-go/security v1.0.41 // indirect
+	github.com/starter-go/security-gin v0.0.12 // indirect
+	github.com/starter-go/security-gorm v0.0.16 // indirect
 	github.com/starter-go/starter v1.0.4 // indirect
 	github.com/starter-go/vlog v0.9.5 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
