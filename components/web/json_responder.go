@@ -8,7 +8,7 @@ import (
 	"github.com/starter-go/base/lang"
 	"github.com/starter-go/libgin"
 	"github.com/starter-go/libgin/web"
-	"github.com/starter-go/security/rbac"
+	"github.com/starter-go/rbac"
 )
 
 // JSONGinResponder 用来发送 JSON 形式的 HTTP 响应

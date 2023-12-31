@@ -16,14 +16,14 @@
         "destinations": [
             {
                 "id": "main",
-                "path": "gen/gen4ggsecurity",
+                "path": "gen/main4ggsecurity",
                 "sources": [
                     "main"
                 ]
             },
             {
                 "id": "test",
-                "path": "gen/gen4ggsecuritytest",
+                "path": "gen/test4ggsecurity",
                 "sources": [
                     "test"
                 ]

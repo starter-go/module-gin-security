@@ -3,7 +3,7 @@ package home
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/starter-go/libgin"
-	"github.com/starter-go/security/rbac"
+	"github.com/starter-go/rbac"
 )
 
 // ExampleVO ...

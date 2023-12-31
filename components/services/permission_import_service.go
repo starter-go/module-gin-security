@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/starter-go/application"
-	"github.com/starter-go/security/rbac"
+	"github.com/starter-go/rbac"
 	"github.com/starter-go/vlog"
 )
 

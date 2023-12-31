@@ -1,8 +1,9 @@
-package gen4ggsecurity
+package main4ggsecurity
 import (
     p0ef6f2938 "github.com/starter-go/application"
     pd1a916a20 "github.com/starter-go/libgin"
     p6a34f6f22 "github.com/starter-go/module-email/mails"
+    p24287f458 "github.com/starter-go/rbac"
     p4f3ce922c "github.com/starter-go/security-gin-gorm/components/auth/auth1/email"
     p492cd0c9e "github.com/starter-go/security-gin-gorm/components/auth/auth1/sms"
     pc0223a2c4 "github.com/starter-go/security-gin-gorm/components/auth/auth1/vericode"
@@ -15,7 +16,6 @@ import (
     pf5d2c6fae "github.com/starter-go/security-gorm/rbacdb"
     p91f218d46 "github.com/starter-go/security/jwt"
     p9621e8b71 "github.com/starter-go/security/random"
-    p2dece1e49 "github.com/starter-go/security/rbac"
      "github.com/starter-go/application"
 )
 
@@ -332,8 +332,8 @@ func (inst*p56e4dad453_services_PermissionImportServiceImpl) getAC(ie applicatio
 }
 
 
-func (inst*p56e4dad453_services_PermissionImportServiceImpl) getPermService(ie application.InjectionExt)p2dece1e49.PermissionService{
-    return ie.GetComponent("#alias-2dece1e495fd61b93f78009d229f38cf-PermissionService").(p2dece1e49.PermissionService)
+func (inst*p56e4dad453_services_PermissionImportServiceImpl) getPermService(ie application.InjectionExt)p24287f458.PermissionService{
+    return ie.GetComponent("#alias-24287f4589fe5add27fb48a88d706565-PermissionService").(p24287f458.PermissionService)
 }
 
 
@@ -388,8 +388,8 @@ func (inst*p985949a7f7_admin_PermissionController) getResponder(ie application.I
 }
 
 
-func (inst*p985949a7f7_admin_PermissionController) getService(ie application.InjectionExt)p2dece1e49.PermissionService{
-    return ie.GetComponent("#alias-2dece1e495fd61b93f78009d229f38cf-PermissionService").(p2dece1e49.PermissionService)
+func (inst*p985949a7f7_admin_PermissionController) getService(ie application.InjectionExt)p24287f458.PermissionService{
+    return ie.GetComponent("#alias-24287f4589fe5add27fb48a88d706565-PermissionService").(p24287f458.PermissionService)
 }
 
 
@@ -443,8 +443,8 @@ func (inst*p985949a7f7_admin_RegionController) getResponder(ie application.Injec
 }
 
 
-func (inst*p985949a7f7_admin_RegionController) getService(ie application.InjectionExt)p2dece1e49.RegionService{
-    return ie.GetComponent("#alias-2dece1e495fd61b93f78009d229f38cf-RegionService").(p2dece1e49.RegionService)
+func (inst*p985949a7f7_admin_RegionController) getService(ie application.InjectionExt)p24287f458.RegionService{
+    return ie.GetComponent("#alias-24287f4589fe5add27fb48a88d706565-RegionService").(p24287f458.RegionService)
 }
 
 
@@ -493,8 +493,8 @@ func (inst*p985949a7f7_admin_RoleController) getResponder(ie application.Injecti
 }
 
 
-func (inst*p985949a7f7_admin_RoleController) getService(ie application.InjectionExt)p2dece1e49.RoleService{
-    return ie.GetComponent("#alias-2dece1e495fd61b93f78009d229f38cf-RoleService").(p2dece1e49.RoleService)
+func (inst*p985949a7f7_admin_RoleController) getService(ie application.InjectionExt)p24287f458.RoleService{
+    return ie.GetComponent("#alias-24287f4589fe5add27fb48a88d706565-RoleService").(p24287f458.RoleService)
 }
 
 
@@ -543,8 +543,8 @@ func (inst*p985949a7f7_admin_UserController) getResponder(ie application.Injecti
 }
 
 
-func (inst*p985949a7f7_admin_UserController) getService(ie application.InjectionExt)p2dece1e49.UserService{
-    return ie.GetComponent("#alias-2dece1e495fd61b93f78009d229f38cf-UserService").(p2dece1e49.UserService)
+func (inst*p985949a7f7_admin_UserController) getService(ie application.InjectionExt)p24287f458.UserService{
+    return ie.GetComponent("#alias-24287f4589fe5add27fb48a88d706565-UserService").(p24287f458.UserService)
 }
 
 
@@ -593,8 +593,8 @@ func (inst*p775fb156f4_develop_DebugController) getResponder(ie application.Inje
 }
 
 
-func (inst*p775fb156f4_develop_DebugController) getService(ie application.InjectionExt)p2dece1e49.PermissionService{
-    return ie.GetComponent("#alias-2dece1e495fd61b93f78009d229f38cf-PermissionService").(p2dece1e49.PermissionService)
+func (inst*p775fb156f4_develop_DebugController) getService(ie application.InjectionExt)p24287f458.PermissionService{
+    return ie.GetComponent("#alias-24287f4589fe5add27fb48a88d706565-PermissionService").(p24287f458.PermissionService)
 }
 
 
@@ -643,8 +643,8 @@ func (inst*p775fb156f4_develop_ExampleController) getResponder(ie application.In
 }
 
 
-func (inst*p775fb156f4_develop_ExampleController) getService(ie application.InjectionExt)p2dece1e49.PermissionService{
-    return ie.GetComponent("#alias-2dece1e495fd61b93f78009d229f38cf-PermissionService").(p2dece1e49.PermissionService)
+func (inst*p775fb156f4_develop_ExampleController) getService(ie application.InjectionExt)p24287f458.PermissionService{
+    return ie.GetComponent("#alias-24287f4589fe5add27fb48a88d706565-PermissionService").(p24287f458.PermissionService)
 }
 
 
@@ -694,13 +694,13 @@ func (inst*p16ea5b788f_home_AuthController) getResponder(ie application.Injectio
 }
 
 
-func (inst*p16ea5b788f_home_AuthController) getService(ie application.InjectionExt)p2dece1e49.AuthService{
-    return ie.GetComponent("#alias-2dece1e495fd61b93f78009d229f38cf-AuthService").(p2dece1e49.AuthService)
+func (inst*p16ea5b788f_home_AuthController) getService(ie application.InjectionExt)p24287f458.AuthService{
+    return ie.GetComponent("#alias-24287f4589fe5add27fb48a88d706565-AuthService").(p24287f458.AuthService)
 }
 
 
-func (inst*p16ea5b788f_home_AuthController) getAuthSer(ie application.InjectionExt)p2dece1e49.AuthService{
-    return ie.GetComponent("#alias-2dece1e495fd61b93f78009d229f38cf-AuthService").(p2dece1e49.AuthService)
+func (inst*p16ea5b788f_home_AuthController) getAuthSer(ie application.InjectionExt)p24287f458.AuthService{
+    return ie.GetComponent("#alias-24287f4589fe5add27fb48a88d706565-AuthService").(p24287f458.AuthService)
 }
 
 
@@ -749,8 +749,8 @@ func (inst*p16ea5b788f_home_ExampleController) getResponder(ie application.Injec
 }
 
 
-func (inst*p16ea5b788f_home_ExampleController) getService(ie application.InjectionExt)p2dece1e49.PermissionService{
-    return ie.GetComponent("#alias-2dece1e495fd61b93f78009d229f38cf-PermissionService").(p2dece1e49.PermissionService)
+func (inst*p16ea5b788f_home_ExampleController) getService(ie application.InjectionExt)p24287f458.PermissionService{
+    return ie.GetComponent("#alias-24287f4589fe5add27fb48a88d706565-PermissionService").(p24287f458.PermissionService)
 }
 
 
@@ -799,8 +799,8 @@ func (inst*p16ea5b788f_home_PermissionController) getResponder(ie application.In
 }
 
 
-func (inst*p16ea5b788f_home_PermissionController) getService(ie application.InjectionExt)p2dece1e49.PermissionService{
-    return ie.GetComponent("#alias-2dece1e495fd61b93f78009d229f38cf-PermissionService").(p2dece1e49.PermissionService)
+func (inst*p16ea5b788f_home_PermissionController) getService(ie application.InjectionExt)p24287f458.PermissionService{
+    return ie.GetComponent("#alias-24287f4589fe5add27fb48a88d706565-PermissionService").(p24287f458.PermissionService)
 }
 
 
@@ -849,8 +849,8 @@ func (inst*p16ea5b788f_home_RegionController) getResponder(ie application.Inject
 }
 
 
-func (inst*p16ea5b788f_home_RegionController) getService(ie application.InjectionExt)p2dece1e49.RegionService{
-    return ie.GetComponent("#alias-2dece1e495fd61b93f78009d229f38cf-RegionService").(p2dece1e49.RegionService)
+func (inst*p16ea5b788f_home_RegionController) getService(ie application.InjectionExt)p24287f458.RegionService{
+    return ie.GetComponent("#alias-24287f4589fe5add27fb48a88d706565-RegionService").(p24287f458.RegionService)
 }
 
 
@@ -899,8 +899,8 @@ func (inst*p16ea5b788f_home_RoleController) getResponder(ie application.Injectio
 }
 
 
-func (inst*p16ea5b788f_home_RoleController) getService(ie application.InjectionExt)p2dece1e49.RoleService{
-    return ie.GetComponent("#alias-2dece1e495fd61b93f78009d229f38cf-RoleService").(p2dece1e49.RoleService)
+func (inst*p16ea5b788f_home_RoleController) getService(ie application.InjectionExt)p24287f458.RoleService{
+    return ie.GetComponent("#alias-24287f4589fe5add27fb48a88d706565-RoleService").(p24287f458.RoleService)
 }
 
 
@@ -950,8 +950,8 @@ func (inst*p16ea5b788f_home_SessionController) getResponder(ie application.Injec
 }
 
 
-func (inst*p16ea5b788f_home_SessionController) getService(ie application.InjectionExt)p2dece1e49.PermissionService{
-    return ie.GetComponent("#alias-2dece1e495fd61b93f78009d229f38cf-PermissionService").(p2dece1e49.PermissionService)
+func (inst*p16ea5b788f_home_SessionController) getService(ie application.InjectionExt)p24287f458.PermissionService{
+    return ie.GetComponent("#alias-24287f4589fe5add27fb48a88d706565-PermissionService").(p24287f458.PermissionService)
 }
 
 
@@ -1006,8 +1006,8 @@ func (inst*p16ea5b788f_home_TokenController) getResponder(ie application.Injecti
 }
 
 
-func (inst*p16ea5b788f_home_TokenController) getService(ie application.InjectionExt)p2dece1e49.PermissionService{
-    return ie.GetComponent("#alias-2dece1e495fd61b93f78009d229f38cf-PermissionService").(p2dece1e49.PermissionService)
+func (inst*p16ea5b788f_home_TokenController) getService(ie application.InjectionExt)p24287f458.PermissionService{
+    return ie.GetComponent("#alias-24287f4589fe5add27fb48a88d706565-PermissionService").(p24287f458.PermissionService)
 }
 
 
@@ -1061,8 +1061,8 @@ func (inst*p16ea5b788f_home_UserController) getResponder(ie application.Injectio
 }
 
 
-func (inst*p16ea5b788f_home_UserController) getService(ie application.InjectionExt)p2dece1e49.UserService{
-    return ie.GetComponent("#alias-2dece1e495fd61b93f78009d229f38cf-UserService").(p2dece1e49.UserService)
+func (inst*p16ea5b788f_home_UserController) getService(ie application.InjectionExt)p24287f458.UserService{
+    return ie.GetComponent("#alias-24287f4589fe5add27fb48a88d706565-UserService").(p24287f458.UserService)
 }
 
 

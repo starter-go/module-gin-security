@@ -6,57 +6,68 @@ import (
 	"github.com/starter-go/application"
 	"github.com/starter-go/libgin/modules/libgin"
 	"github.com/starter-go/libgorm/modules/libgorm"
-	moduleemail "github.com/starter-go/module-email"
-	modulegormmysql "github.com/starter-go/module-gorm-mysql"
-	modulegormsqlserver "github.com/starter-go/module-gorm-sqlserver"
+	"github.com/starter-go/module-gorm-mysql/modules/mysql"
+	"github.com/starter-go/module-gorm-sqlserver/modules/sqlserver"
 	"github.com/starter-go/security-gin/modules/securitygin"
 	"github.com/starter-go/security-gorm/modules/securitygorm"
+	"github.com/starter-go/security/modules/security"
+
+	moduleemail "github.com/starter-go/module-email"
 )
 
 const (
 	theModuleName = "github.com/starter-go/security-gin-gorm"
-	theModuleVer  = "v0.0.9"
-	theModuleRev  = 9
+	theModuleVer  = "v1.0.45"
+	theModuleRev  = 11
+)
 
-	theSrcMainResPath = "src/main/resources"
-	theSrcTestResPath = "src/test/resources"
+////////////////////////////////////////////////////////////////////////////////
+
+const (
+	theMainModuleResPath = "src/main/resources"
+	theTestModuleResPath = "src/test/resources"
 )
 
 //go:embed "src/main/resources"
-var theSrcMainResFS embed.FS
+var theMainModuleResFS embed.FS
 
 //go:embed "src/test/resources"
-var theSrcTestResFS embed.FS
+var theTestModuleResFS embed.FS
 
-// SrcMainModuleBuilder ...
-func SrcMainModuleBuilder() *application.ModuleBuilder {
+////////////////////////////////////////////////////////////////////////////////
+
+// NewMainModule ...
+func NewMainModule() *application.ModuleBuilder {
 
 	mb := &application.ModuleBuilder{}
 	mb.Name(theModuleName)
 	mb.Version(theModuleVer)
 	mb.Revision(theModuleRev)
-	mb.EmbedResources(theSrcMainResFS, theSrcMainResPath)
+
+	mb.EmbedResources(theMainModuleResFS, theMainModuleResPath)
 
 	mb.Depend(libgin.Module())
 	mb.Depend(libgorm.Module())
 	mb.Depend(securitygorm.Module())
 	mb.Depend(securitygin.Module())
+	mb.Depend(security.Module())
 	mb.Depend(moduleemail.Module())
 
 	return mb
 }
 
-// SrcTestModuleBuilder ...
-func SrcTestModuleBuilder() *application.ModuleBuilder {
+// NewTestModule ...
+func NewTestModule() *application.ModuleBuilder {
 
 	mb := &application.ModuleBuilder{}
 	mb.Name(theModuleName + "#test")
 	mb.Version(theModuleVer)
 	mb.Revision(theModuleRev)
-	mb.EmbedResources(theSrcTestResFS, theSrcTestResPath)
 
-	mb.Depend(modulegormmysql.Module())
-	mb.Depend(modulegormsqlserver.Module())
+	mb.EmbedResources(theTestModuleResFS, theTestModuleResPath)
+
+	mb.Depend(mysql.Module())
+	mb.Depend(sqlserver.Module())
 
 	return mb
 }

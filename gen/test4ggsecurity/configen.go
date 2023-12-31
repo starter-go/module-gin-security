@@ -1,4 +1,4 @@
-package gen4ggsecuritytest
+package test4ggsecurity
 
 import "github.com/starter-go/application"
 

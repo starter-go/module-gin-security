@@ -2,7 +2,7 @@ module github.com/starter-go/security-gin-gorm
 
 go 1.20
 
-require github.com/starter-go/module-gorm-mysql v0.9.12
+require github.com/starter-go/module-gorm-mysql v1.0.0
 
 require (
 	github.com/bytedance/sonic v1.9.1 // indirect
@@ -29,16 +29,17 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.8 // indirect
 	github.com/starter-go/afs v0.9.4 // indirect
-	github.com/starter-go/application v0.9.18 // indirect
+	github.com/starter-go/application v0.9.20 // indirect
 	github.com/starter-go/base v0.9.11 // indirect
 	github.com/starter-go/configen v0.9.5 // indirect
-	github.com/starter-go/libgin v1.0.10 // indirect
+	github.com/starter-go/libgin v1.0.11 // indirect
 	github.com/starter-go/libgorm v0.9.12 // indirect
 	github.com/starter-go/module-email v0.0.2 // indirect
-	github.com/starter-go/module-gorm-sqlserver v0.9.12 // indirect
-	github.com/starter-go/security v1.0.43 // indirect
-	github.com/starter-go/security-gin v0.0.14 // indirect
-	github.com/starter-go/security-gorm v0.0.17 // indirect
+	github.com/starter-go/module-gorm-sqlserver v1.0.0 // indirect
+	github.com/starter-go/rbac v0.0.1 // indirect
+	github.com/starter-go/security v1.0.45 // indirect
+	github.com/starter-go/security-gin v1.0.45 // indirect
+	github.com/starter-go/security-gorm v1.0.45 // indirect
 	github.com/starter-go/starter v1.0.7 // indirect
 	github.com/starter-go/vlog v0.9.7 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect

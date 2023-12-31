@@ -5,9 +5,9 @@ import (
 	"fmt"
 
 	"github.com/starter-go/base/lang"
+	"github.com/starter-go/rbac"
 	"github.com/starter-go/security/auth"
 	"github.com/starter-go/security/jwt"
-	"github.com/starter-go/security/rbac"
 )
 
 // AuthorizerForLogin ...

@@ -5,7 +5,7 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/starter-go/security/rbac"
+	"github.com/starter-go/rbac"
 )
 
 func getItemOnlyOne[T any](list []*T) (*T, error) {
