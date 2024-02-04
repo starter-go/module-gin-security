@@ -45,6 +45,7 @@ func (inst*autoRegistrar) addAll() error {
     inst.register(&p775fb156f4_develop_DebugController{})
     inst.register(&p775fb156f4_develop_ExampleController{})
     inst.register(&p89ee959c3d_login_AuthorizerForLogin{})
+    inst.register(&p985949a7f7_admin_GroupController{})
     inst.register(&p985949a7f7_admin_PermissionController{})
     inst.register(&p985949a7f7_admin_RegionController{})
     inst.register(&p985949a7f7_admin_RoleController{})

@@ -343,6 +343,56 @@ func (inst*p56e4dad453_services_PermissionImportServiceImpl) getResPath(ie appli
 
 
 
+// type p985949a7f.GroupController in package:github.com/starter-go/security-gin-gorm/components/web/controllers/admin
+//
+// id:com-985949a7f73396fb-admin-GroupController
+// class:class-d1a916a203352fd5d33eabc36896b42e-Controller
+// alias:
+// scope:singleton
+//
+type p985949a7f7_admin_GroupController struct {
+}
+
+func (inst* p985949a7f7_admin_GroupController) register(cr application.ComponentRegistry) error {
+	r := cr.NewRegistration()
+	r.ID = "com-985949a7f73396fb-admin-GroupController"
+	r.Classes = "class-d1a916a203352fd5d33eabc36896b42e-Controller"
+	r.Aliases = ""
+	r.Scope = "singleton"
+	r.NewFunc = inst.new
+	r.InjectFunc = inst.inject
+	return r.Commit()
+}
+
+func (inst* p985949a7f7_admin_GroupController) new() any {
+    return &p985949a7f.GroupController{}
+}
+
+func (inst* p985949a7f7_admin_GroupController) inject(injext application.InjectionExt, instance any) error {
+	ie := injext
+	com := instance.(*p985949a7f.GroupController)
+	nop(ie, com)
+
+	
+    com.Responder = inst.getResponder(ie)
+    com.Service = inst.getService(ie)
+
+
+    return nil
+}
+
+
+func (inst*p985949a7f7_admin_GroupController) getResponder(ie application.InjectionExt)pd1a916a20.Responder{
+    return ie.GetComponent("#alias-d1a916a203352fd5d33eabc36896b42e-Responder").(pd1a916a20.Responder)
+}
+
+
+func (inst*p985949a7f7_admin_GroupController) getService(ie application.InjectionExt)p24287f458.GroupService{
+    return ie.GetComponent("#alias-24287f4589fe5add27fb48a88d706565-GroupService").(p24287f458.GroupService)
+}
+
+
+
 // type p985949a7f.PermissionController in package:github.com/starter-go/security-gin-gorm/components/web/controllers/admin
 //
 // id:com-985949a7f73396fb-admin-PermissionController
