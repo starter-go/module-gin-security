@@ -30,7 +30,17 @@ func (inst *autoRegistrar) register(factory comFactory) error {
 func (inst*autoRegistrar) addAll() error {
 
     
-    inst.register(&p44c971931c_golang_Demo1Controller{})
+    inst.register(&pe7f155628f_testcases_APITester{})
+    inst.register(&pe7f155628f_testcases_AuthSendVerificationMailTester{})
+    inst.register(&pe7f155628f_testcases_AuthSendVerificationSMSTester{})
+    inst.register(&pe7f155628f_testcases_AuthSignInTester{})
+    inst.register(&pe7f155628f_testcases_AuthSignUpTester{})
+    inst.register(&pe7f155628f_testcases_DefaultResponseHandler{})
+    inst.register(&pe7f155628f_testcases_MockEmailSender{})
+    inst.register(&pe7f155628f_testcases_MockSMSSender{})
+    inst.register(&pe7f155628f_testcases_MyHTTPAgentFilter{})
+    inst.register(&pe7f155628f_testcases_SessionsCurrentTester{})
+    inst.register(&pe7f155628f_testcases_TestRunner{})
 
 
     return nil

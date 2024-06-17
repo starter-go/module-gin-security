@@ -17,8 +17,8 @@ import (
 
 const (
 	theModuleName = "github.com/starter-go/security-gin-gorm"
-	theModuleVer  = "v1.0.46"
-	theModuleRev  = 13
+	theModuleVer  = "v1.0.47"
+	theModuleRev  = 14
 )
 
 ////////////////////////////////////////////////////////////////////////////////

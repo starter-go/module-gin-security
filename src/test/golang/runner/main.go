@@ -8,7 +8,8 @@ import (
 )
 
 func main() {
+	m := securitygingorm.ModuleForTest()
 	i := starter.Init(os.Args)
-	i.MainModule(securitygingorm.ModuleForTest())
+	i.MainModule(m)
 	i.WithPanic(true).Run()
 }
