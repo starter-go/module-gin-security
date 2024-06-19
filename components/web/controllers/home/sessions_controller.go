@@ -46,10 +46,13 @@ func (inst *SessionController) route(g libgin.RouterProxy) error {
 	g.GET("", inst.handleGetList)
 	g.GET("current", inst.handleGetCurrent)
 	g.GET(":id", inst.handleGetOne)
+
 	g.PUT(":id", inst.handleUpdate)
 	g.DELETE(":id", inst.handleRemove)
+
 	g.POST("", inst.handleInsert)
 	g.POST("renew", inst.handleRenew)
+	g.POST("exit", inst.handleExit)
 
 	return nil
 }
@@ -125,7 +128,18 @@ func (inst *SessionController) handleRemove(c *gin.Context) {
 		wantRequestPage: false,
 		wantRequestID:   false,
 	}
-	inst.execute(req, req.doRemove)
+	inst.execute(req, req.doExit)
+}
+
+func (inst *SessionController) handleExit(c *gin.Context) {
+	req := &mySessionRequest{
+		controller:      inst,
+		context:         c,
+		wantRequestBody: false,
+		wantRequestPage: false,
+		wantRequestID:   false,
+	}
+	inst.execute(req, req.doExit)
 }
 
 func (inst *SessionController) handleRenew(c *gin.Context) {
@@ -214,8 +228,11 @@ func (inst *mySessionRequest) doUpdate() error {
 	return nil
 }
 
-func (inst *mySessionRequest) doRemove() error {
-	return nil
+func (inst *mySessionRequest) doExit() error {
+	ctx := inst.context
+	token := &jwt.Token{}
+	ser := inst.controller.JWTService
+	return ser.SetDTO(ctx, token)
 }
 
 func (inst *mySessionRequest) doRenew() error {
