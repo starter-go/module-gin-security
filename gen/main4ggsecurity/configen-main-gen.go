@@ -37,6 +37,7 @@ func (inst*autoRegistrar) addAll() error {
     inst.register(&p16ea5b788f_home_RegionController{})
     inst.register(&p16ea5b788f_home_RoleController{})
     inst.register(&p16ea5b788f_home_SessionController{})
+    inst.register(&p16ea5b788f_home_SubjectController{})
     inst.register(&p16ea5b788f_home_TokenController{})
     inst.register(&p16ea5b788f_home_UserController{})
     inst.register(&p492cd0c9ee_sms_AuthBySMS{})

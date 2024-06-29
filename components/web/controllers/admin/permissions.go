@@ -37,9 +37,10 @@ func (inst *PermissionController) _impl() {
 
 // Registration ...
 func (inst *PermissionController) Registration() *libgin.ControllerRegistration {
+	apiGroups := myAPIGroup()
 	return &libgin.ControllerRegistration{
 		Route:  inst.route,
-		Groups: []string{"admin"},
+		Groups: apiGroups,
 	}
 }
 

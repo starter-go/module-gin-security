@@ -37,10 +37,10 @@ require (
 	github.com/starter-go/libgorm v0.9.12 // indirect
 	github.com/starter-go/module-email v0.0.2 // indirect
 	github.com/starter-go/module-gorm-sqlserver v1.0.0 // indirect
-	github.com/starter-go/rbac v0.0.2 // indirect
-	github.com/starter-go/security v1.0.47 // indirect
-	github.com/starter-go/security-gin v1.0.46 // indirect
-	github.com/starter-go/security-gorm v1.0.46 // indirect
+	github.com/starter-go/rbac v0.0.3 // indirect
+	github.com/starter-go/security v1.0.48 // indirect
+	github.com/starter-go/security-gin v1.0.48 // indirect
+	github.com/starter-go/security-gorm v1.0.48 // indirect
 	github.com/starter-go/starter v1.0.10 // indirect
 	github.com/starter-go/units v0.0.3 // indirect
 	github.com/starter-go/vlog v0.9.8 // indirect

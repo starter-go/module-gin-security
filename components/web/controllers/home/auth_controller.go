@@ -50,6 +50,8 @@ func (inst *AuthController) Registration() *libgin.ControllerRegistration {
 func (inst *AuthController) route(g libgin.RouterProxy) error {
 	g = g.For("auth")
 
+	g.GET("example", inst.handleGetExample) // 获取数据结构示例
+
 	g.POST("", inst.handleSignIn)                                     // 'sign-in' 的简要别名
 	g.POST("sign-in", inst.handleSignIn)                              // 登录
 	g.POST("sign-up", inst.handleSignUp)                              // 注册
@@ -121,6 +123,15 @@ func (inst *AuthController) handleResetPassword(c *gin.Context) {
 		wantRequestBody: true,
 	}
 	inst.execute(req, req.doResetPassword)
+}
+
+func (inst *AuthController) handleGetExample(c *gin.Context) {
+	req := &myAuthRequest{
+		controller:      inst,
+		context:         c,
+		wantRequestBody: false,
+	}
+	inst.execute(req, req.doGetExample)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -215,6 +226,13 @@ func (inst *myAuthRequest) doResetPassword() error {
 	alist := inst.body1.Auth
 	err := inst.controller.AuthSer.Handle(ctx, action, alist)
 	return err
+}
+
+func (inst *myAuthRequest) doGetExample() error {
+	list := inst.body2.Auth
+	list = append(list, &rbac.AuthDTO{})
+	inst.body2.Auth = list
+	return nil
 }
 
 ////////////////////////////////////////////////////////////////////////////////

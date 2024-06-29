@@ -1011,6 +1011,56 @@ func (inst*p16ea5b788f_home_SessionController) getJWTService(ie application.Inje
 
 
 
+// type p16ea5b788.SubjectController in package:github.com/starter-go/security-gin-gorm/components/web/controllers/home
+//
+// id:com-16ea5b788fa3dca4-home-SubjectController
+// class:class-d1a916a203352fd5d33eabc36896b42e-Controller
+// alias:
+// scope:singleton
+//
+type p16ea5b788f_home_SubjectController struct {
+}
+
+func (inst* p16ea5b788f_home_SubjectController) register(cr application.ComponentRegistry) error {
+	r := cr.NewRegistration()
+	r.ID = "com-16ea5b788fa3dca4-home-SubjectController"
+	r.Classes = "class-d1a916a203352fd5d33eabc36896b42e-Controller"
+	r.Aliases = ""
+	r.Scope = "singleton"
+	r.NewFunc = inst.new
+	r.InjectFunc = inst.inject
+	return r.Commit()
+}
+
+func (inst* p16ea5b788f_home_SubjectController) new() any {
+    return &p16ea5b788.SubjectController{}
+}
+
+func (inst* p16ea5b788f_home_SubjectController) inject(injext application.InjectionExt, instance any) error {
+	ie := injext
+	com := instance.(*p16ea5b788.SubjectController)
+	nop(ie, com)
+
+	
+    com.Responder = inst.getResponder(ie)
+    com.Service = inst.getService(ie)
+
+
+    return nil
+}
+
+
+func (inst*p16ea5b788f_home_SubjectController) getResponder(ie application.InjectionExt)pd1a916a20.Responder{
+    return ie.GetComponent("#alias-d1a916a203352fd5d33eabc36896b42e-Responder").(pd1a916a20.Responder)
+}
+
+
+func (inst*p16ea5b788f_home_SubjectController) getService(ie application.InjectionExt)p24287f458.SubjectService{
+    return ie.GetComponent("#alias-24287f4589fe5add27fb48a88d706565-SubjectService").(p24287f458.SubjectService)
+}
+
+
+
 // type p16ea5b788.TokenController in package:github.com/starter-go/security-gin-gorm/components/web/controllers/home
 //
 // id:com-16ea5b788fa3dca4-home-TokenController
