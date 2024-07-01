@@ -12,13 +12,13 @@ import (
 	"github.com/starter-go/security-gorm/modules/securitygorm"
 	"github.com/starter-go/security/modules/security"
 
-	moduleemail "github.com/starter-go/module-email"
+	"github.com/starter-go/mails/modules/mails"
 )
 
 const (
 	theModuleName = "github.com/starter-go/security-gin-gorm"
-	theModuleVer  = "v1.0.49"
-	theModuleRev  = 16
+	theModuleVer  = "v1.0.50"
+	theModuleRev  = 17
 )
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -51,7 +51,7 @@ func NewMainModule() *application.ModuleBuilder {
 	mb.Depend(securitygorm.Module())
 	mb.Depend(securitygin.Module())
 	mb.Depend(security.Module())
-	mb.Depend(moduleemail.Module())
+	mb.Depend(mails.LibModule())
 
 	return mb
 }

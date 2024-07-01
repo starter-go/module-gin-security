@@ -8,7 +8,7 @@ import (
 
 	"github.com/starter-go/application"
 	"github.com/starter-go/base/lang"
-	"github.com/starter-go/module-email/mails"
+	"github.com/starter-go/mails"
 	"github.com/starter-go/security/auth"
 	"github.com/starter-go/security/jwt"
 	"github.com/starter-go/security/random"

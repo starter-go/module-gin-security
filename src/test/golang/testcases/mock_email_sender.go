@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"strings"
 
-	"github.com/starter-go/module-email/mails"
+	"github.com/starter-go/mails"
 	"github.com/starter-go/vlog"
 )
 

@@ -35,7 +35,7 @@ require (
 	github.com/starter-go/httpagent v0.0.5 // indirect
 	github.com/starter-go/libgin v1.0.11 // indirect
 	github.com/starter-go/libgorm v0.9.12 // indirect
-	github.com/starter-go/module-email v0.0.2 // indirect
+	github.com/starter-go/mails v0.0.3 // indirect
 	github.com/starter-go/module-gorm-sqlserver v1.0.0 // indirect
 	github.com/starter-go/rbac v0.0.3 // indirect
 	github.com/starter-go/security v1.0.48 // indirect

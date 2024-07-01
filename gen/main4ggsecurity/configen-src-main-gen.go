@@ -2,7 +2,7 @@ package main4ggsecurity
 import (
     p0ef6f2938 "github.com/starter-go/application"
     pd1a916a20 "github.com/starter-go/libgin"
-    p6a34f6f22 "github.com/starter-go/module-email/mails"
+    pd671d76a1 "github.com/starter-go/mails"
     p24287f458 "github.com/starter-go/rbac"
     p4f3ce922c "github.com/starter-go/security-gin-gorm/components/auth/auth1/email"
     p492cd0c9e "github.com/starter-go/security-gin-gorm/components/auth/auth1/sms"
@@ -150,8 +150,8 @@ func (inst* pc0223a2c4a_vericode_VerificationServiceImpl) inject(injext applicat
 }
 
 
-func (inst*pc0223a2c4a_vericode_VerificationServiceImpl) getSender(ie application.InjectionExt)p6a34f6f22.Service{
-    return ie.GetComponent("#alias-6a34f6f2249275109e9baea3c805a883-Service").(p6a34f6f22.Service)
+func (inst*pc0223a2c4a_vericode_VerificationServiceImpl) getSender(ie application.InjectionExt)pd671d76a1.Service{
+    return ie.GetComponent("#alias-d671d76a169061f84f6814f84b98af24-Service").(pd671d76a1.Service)
 }
 
 

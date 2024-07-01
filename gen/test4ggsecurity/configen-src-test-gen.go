@@ -347,7 +347,7 @@ func (inst* pe7f155628f_testcases_DefaultResponseHandler) inject(injext applicat
 // type pe7f155628.MockEmailSender in package:github.com/starter-go/security-gin-gorm/src/test/golang/testcases
 //
 // id:com-e7f155628f0ebd15-testcases-MockEmailSender
-// class:class-6a34f6f2249275109e9baea3c805a883-DriverRegistry
+// class:class-d671d76a169061f84f6814f84b98af24-DriverRegistry
 // alias:
 // scope:singleton
 //
@@ -357,7 +357,7 @@ type pe7f155628f_testcases_MockEmailSender struct {
 func (inst* pe7f155628f_testcases_MockEmailSender) register(cr application.ComponentRegistry) error {
 	r := cr.NewRegistration()
 	r.ID = "com-e7f155628f0ebd15-testcases-MockEmailSender"
-	r.Classes = "class-6a34f6f2249275109e9baea3c805a883-DriverRegistry"
+	r.Classes = "class-d671d76a169061f84f6814f84b98af24-DriverRegistry"
 	r.Aliases = ""
 	r.Scope = "singleton"
 	r.NewFunc = inst.new
@@ -385,7 +385,7 @@ func (inst* pe7f155628f_testcases_MockEmailSender) inject(injext application.Inj
 // type pe7f155628.MockSMSSender in package:github.com/starter-go/security-gin-gorm/src/test/golang/testcases
 //
 // id:com-e7f155628f0ebd15-testcases-MockSMSSender
-// class:class-6a34f6f2249275109e9baea3c805a883-DriverRegistry
+// class:class-d671d76a169061f84f6814f84b98af24-DriverRegistry
 // alias:
 // scope:singleton
 //
@@ -395,7 +395,7 @@ type pe7f155628f_testcases_MockSMSSender struct {
 func (inst* pe7f155628f_testcases_MockSMSSender) register(cr application.ComponentRegistry) error {
 	r := cr.NewRegistration()
 	r.ID = "com-e7f155628f0ebd15-testcases-MockSMSSender"
-	r.Classes = "class-6a34f6f2249275109e9baea3c805a883-DriverRegistry"
+	r.Classes = "class-d671d76a169061f84f6814f84b98af24-DriverRegistry"
 	r.Aliases = ""
 	r.Scope = "singleton"
 	r.NewFunc = inst.new

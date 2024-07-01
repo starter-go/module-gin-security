@@ -153,6 +153,8 @@ github.com/starter-go/libgorm v0.9.11 h1:f7oe4imZiMcSrXdlrifaszEdo8qzTk1TrIwZm8Q
 github.com/starter-go/libgorm v0.9.11/go.mod h1:XmwTH1/oq/UIYf0Lam/XZdnskrWITVOeVQs42mK4/oA=
 github.com/starter-go/libgorm v0.9.12 h1:IUh5Iaz+QUhhNPOUR8VszEL24vZu79VeHbDryH5QPnQ=
 github.com/starter-go/libgorm v0.9.12/go.mod h1:vWvQ++jf9qe/ik83eAPrnHzvovAXj8kMf174wenW7ho=
+github.com/starter-go/mails v0.0.3 h1:qoVaZlpbtl5pQwVpgi5+mfpGMI9ChIqJGM8AVmq5ADE=
+github.com/starter-go/mails v0.0.3/go.mod h1:X33ZC57lvCCULmjlTxrHC2J4P0xiJq1IaqLUFzc8DB4=
 github.com/starter-go/module-email v0.0.1 h1:POdn/3bds2Mj8iHig8WbKmgsPYoYiYG5ffBubu8CbuU=
 github.com/starter-go/module-email v0.0.1/go.mod h1:rZFiYeh/1MAp+QAEqp5CRlp2tMNF6M85n6Ztcv1Tx2E=
 github.com/starter-go/module-email v0.0.2 h1:jp7VKH3simF4lOXqKC75NdYXH/DwePrdVqdCKPW9ZDc=

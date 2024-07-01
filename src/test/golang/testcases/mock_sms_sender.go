@@ -3,7 +3,7 @@ package testcases
 import (
 	"context"
 
-	"github.com/starter-go/module-email/mails"
+	"github.com/starter-go/mails"
 	"github.com/starter-go/vlog"
 )
 
