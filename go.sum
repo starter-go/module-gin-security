@@ -147,6 +147,8 @@ github.com/starter-go/libgin v1.0.10 h1:3qd3RH7+UvikZcJI5gXntlgkoV0JZhXx21k+LsDp
 github.com/starter-go/libgin v1.0.10/go.mod h1:wPRH7HxfFiH9UgdZI5ofl6RkOETQFdgA0cjEch1fHuc=
 github.com/starter-go/libgin v1.0.11 h1:c7foqQrlweStdTLm4H17oCn+ToUMo3ZcScN3B7UHUu4=
 github.com/starter-go/libgin v1.0.11/go.mod h1:BNm/WfsgRxGRrdWEPhEo4fKFjLA3XVFbIY0p8w8LdvA=
+github.com/starter-go/libgin v1.0.12 h1:SNEatkmiCYq9ZX4hXUHZwnSHI50ETuj0AIqgzPsgt30=
+github.com/starter-go/libgin v1.0.12/go.mod h1:t/otbvSNskOF28Dspm0nnRCclLzJ2LIMdV2PGLFF6tg=
 github.com/starter-go/libgorm v0.9.8 h1:4ec+PLn9we4TQdYUgFPZO4XDQRFJwdE1gucnemaA8yU=
 github.com/starter-go/libgorm v0.9.8/go.mod h1:wiWQaZtVdxhRWDGhQqaEworqiLdzDgmPYzRFzFyx/Tk=
 github.com/starter-go/libgorm v0.9.11 h1:f7oe4imZiMcSrXdlrifaszEdo8qzTk1TrIwZm8Q6qqM=
@@ -287,6 +289,8 @@ github.com/starter-go/security-gin v1.0.46 h1:CqblfehJAQl60z6bTkOm/VyidSTMz1/GBA
 github.com/starter-go/security-gin v1.0.46/go.mod h1:oYsvzKttzNtOHiFkG/sTO9EZZnCrJlCwqJeqshAdOOo=
 github.com/starter-go/security-gin v1.0.48 h1:0m3zB/dyUXNEIUooUaStusiQWH7Z+iSJQWiaUXuM8Eo=
 github.com/starter-go/security-gin v1.0.48/go.mod h1:brZeqsFN0l/UjZTYxKJ//27UHHKDRUGIglzmgGbiFhw=
+github.com/starter-go/security-gin v1.0.49 h1:ZSHbg2f3NxY9rFX33VtmWyz6HQsrocAhHXFytjcrQQ8=
+github.com/starter-go/security-gin v1.0.49/go.mod h1:Ze/6HXqg5F7D3FSQuLN9ceUGoSxBdu77EiDgc8loeXo=
 github.com/starter-go/security-gorm v0.0.1 h1:1W5//tq5uCPyc8n1n/lbvNXlrTIqxgDJy0rZC6rTc7c=
 github.com/starter-go/security-gorm v0.0.1/go.mod h1:9qgNXmXdOuLkJLhgjT9pKczkITWNJjD4NuaZYNZ8RuI=
 github.com/starter-go/security-gorm v0.0.2 h1:kfjv+ACzMqv5S1xHKrubKP36XWiKf4IPXY4uRbY+84w=
@@ -341,6 +345,8 @@ github.com/starter-go/starter v1.0.8 h1:cmBJbVSb0s3YJPU16hZYCmFJGFevIxLg7gpyoXsO
 github.com/starter-go/starter v1.0.8/go.mod h1:gD1cVYjsYcE+4bLKZzXQp/O5v/mvbDg8LeIRZr61VhA=
 github.com/starter-go/starter v1.0.10 h1:DtKuUQlnobPFk/S3Rl5kl1vdxeh3wtX2NIosxlGwUjM=
 github.com/starter-go/starter v1.0.10/go.mod h1:mfr0zOFpB4S7jVtBUbra1kdmn00L9pKGooibTBI6VP0=
+github.com/starter-go/stopper v0.0.3 h1:UUpH8KW/37IMcYBckxRkF9IFxuYyYrK5/FI7t2sIM8k=
+github.com/starter-go/stopper v0.0.3/go.mod h1:vE4lsTee1SwaB4TlYyAzjJINZ/oktREOc6Nre2fNJfk=
 github.com/starter-go/units v0.0.3 h1:UlHs4qIDfTgNHbuVZdsWZyGp8JPC/jy0XyNw+FMarGc=
 github.com/starter-go/units v0.0.3/go.mod h1:T/Yq2RjMxhzawqqjv+3zsQcyuoajD1wDHZzUSRQyZ20=
 github.com/starter-go/vlog v0.9.5 h1:Rh5L8KjicweDjH5UDKVQzqG2Q9/y63G1TWHe8u6VZpk=
