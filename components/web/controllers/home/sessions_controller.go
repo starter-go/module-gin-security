@@ -1,11 +1,14 @@
 package home
 
 import (
+	"time"
+
 	"github.com/gin-gonic/gin"
+	"github.com/starter-go/base/lang"
 	"github.com/starter-go/libgin"
 	"github.com/starter-go/rbac"
 	"github.com/starter-go/security-gin-gorm/components/web/controllers"
-	"github.com/starter-go/security/jwt"
+	"github.com/starter-go/security/subjects"
 )
 
 // SessionVO ...
@@ -25,9 +28,10 @@ type SessionController struct {
 	//starter:component()
 	_as func(libgin.Controller) //starter:as(".")
 
-	Responder  libgin.Responder       //starter:inject("#")
-	Service    rbac.PermissionService //starter:inject("#")
-	JWTService jwt.Service            //starter:inject("#")
+	Responder libgin.Responder       //starter:inject("#")
+	Service   rbac.PermissionService //starter:inject("#")
+
+	// JWTService jwt.Service            //starter:inject("#")
 
 }
 
@@ -209,14 +213,13 @@ func (inst *mySessionRequest) doGetOne() error {
 
 func (inst *mySessionRequest) doGetCurrent() error {
 	ctx := inst.context
-	session := &rbac.SessionDTO{}
-	j, err := inst.controller.JWTService.GetDTO(ctx)
-	if err == nil {
-		*session = j.Session
+	sub, err := subjects.Current(ctx)
+	if err != nil {
+		return err
 	}
-	list := inst.body2.Sessions
-	list = append(list, session)
-	inst.body2.Sessions = list
+	session := sub.GetSession()
+	o1 := session.Get()
+	inst.body2.Sessions = []*rbac.SessionDTO{o1}
 	return nil
 }
 
@@ -230,15 +233,23 @@ func (inst *mySessionRequest) doUpdate() error {
 
 func (inst *mySessionRequest) doExit() error {
 	ctx := inst.context
-	token := &jwt.Token{}
-	ser := inst.controller.JWTService
-	return ser.SetDTO(ctx, token)
+	sub, err := subjects.Current(ctx)
+	if err != nil {
+		return err
+	}
+	session := sub.GetSession()
+	token := sub.GetToken()
+	sid := session.SessionID()
+	session.Set(&rbac.SessionDTO{ID: sid})
+	token.Set(&rbac.TokenDTO{Session: sid})
+	session.Commit()
+	return token.Commit()
 }
 
 func (inst *mySessionRequest) doRenew() error {
 
 	ctx := inst.context
-	jwts := inst.controller.JWTService
+	sub, err := subjects.Current(ctx)
 
 	// get from body
 	want, err := controllers.GetItemOnlyOne[rbac.SessionDTO](inst.body1.Sessions)
@@ -246,25 +257,30 @@ func (inst *mySessionRequest) doRenew() error {
 		return err
 	}
 
-	// get from jwt
-	have, err := jwts.GetDTO(ctx)
-	if err != nil {
-		return err
+	// params
+	t1 := lang.Now()
+	t2 := want.ExpiredAt
+	if t2 < 1 {
+		t2 = t1.Add(2 * time.Hour) // 默认 max-age 为 2h
 	}
+
+	// get older
+	session := sub.GetSession()
+	o1 := session.Get()
 
 	// update
-	have.Session.ExpiredAt = want.ExpiredAt
-	have.ExpiredAt = 0 // as default
+	o1.StartedAt = t1
+	o1.ExpiredAt = t2
 
-	// set
-	err = jwts.SetDTO(ctx, have)
+	// commit
+	session.Set(o1)
+	err = session.Commit()
 	if err != nil {
 		return err
 	}
 
-	session := &rbac.SessionDTO{}
-	*session = have.Session
-	inst.body2.Sessions = append(inst.body2.Sessions, session)
+	// done
+	inst.body2.Sessions = []*rbac.SessionDTO{o1}
 	return nil
 }
 

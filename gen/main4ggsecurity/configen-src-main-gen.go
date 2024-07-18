@@ -988,7 +988,6 @@ func (inst* p16ea5b788f_home_SessionController) inject(injext application.Inject
 	
     com.Responder = inst.getResponder(ie)
     com.Service = inst.getService(ie)
-    com.JWTService = inst.getJWTService(ie)
 
 
     return nil
@@ -1002,11 +1001,6 @@ func (inst*p16ea5b788f_home_SessionController) getResponder(ie application.Injec
 
 func (inst*p16ea5b788f_home_SessionController) getService(ie application.InjectionExt)p24287f458.PermissionService{
     return ie.GetComponent("#alias-24287f4589fe5add27fb48a88d706565-PermissionService").(p24287f458.PermissionService)
-}
-
-
-func (inst*p16ea5b788f_home_SessionController) getJWTService(ie application.InjectionExt)p91f218d46.Service{
-    return ie.GetComponent("#alias-91f218d46ec21cd234778bbe54aecc66-Service").(p91f218d46.Service)
 }
 
 
@@ -1094,7 +1088,6 @@ func (inst* p16ea5b788f_home_TokenController) inject(injext application.Injectio
 	
     com.Responder = inst.getResponder(ie)
     com.Service = inst.getService(ie)
-    com.JWTService = inst.getJWTService(ie)
 
 
     return nil
@@ -1108,11 +1101,6 @@ func (inst*p16ea5b788f_home_TokenController) getResponder(ie application.Injecti
 
 func (inst*p16ea5b788f_home_TokenController) getService(ie application.InjectionExt)p24287f458.PermissionService{
     return ie.GetComponent("#alias-24287f4589fe5add27fb48a88d706565-PermissionService").(p24287f458.PermissionService)
-}
-
-
-func (inst*p16ea5b788f_home_TokenController) getJWTService(ie application.InjectionExt)p91f218d46.Service{
-    return ie.GetComponent("#alias-91f218d46ec21cd234778bbe54aecc66-Service").(p91f218d46.Service)
 }
 
 

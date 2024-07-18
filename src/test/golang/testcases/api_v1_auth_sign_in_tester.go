@@ -6,6 +6,7 @@ import (
 	"github.com/starter-go/httpagent"
 	"github.com/starter-go/rbac"
 	"github.com/starter-go/security-gin-gorm/components/web/controllers/home"
+	"github.com/starter-go/units"
 )
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -14,24 +15,27 @@ import (
 type AuthSignInTester struct {
 
 	//starter:component()
-	_as func(TestRunnable) //starter:as(".")
+	_as func(units.Units) //starter:as(".")
 
 	Agent           httpagent.Clients //starter:inject("#")
 	ResponseHandler ResponseHandler   //starter:inject("#")
 
 }
 
-func (inst *AuthSignInTester) _impl() TestRunnable {
-	return inst
-}
+func (inst *AuthSignInTester) _impl() units.Units { return inst }
 
-// GetRunnableInfo ...
-func (inst *AuthSignInTester) GetRunnableInfo() *TestRunnableInfo {
-	info := &TestRunnableInfo{}
-	info.Name = "AuthSignInTester"
-	info.Order = OrderAuthSignIn
-	info.OnLoop = inst.run
-	return info
+// Units  ...
+func (inst *AuthSignInTester) Units(list []*units.Registration) []*units.Registration {
+
+	info := &units.Registration{
+		Name:     "AuthSignInTester",
+		Test:     inst.run,
+		Enabled:  true,
+		Priority: 0 - OrderAuthSignIn,
+	}
+
+	list = append(list, info)
+	return list
 }
 
 func (inst *AuthSignInTester) run() error {

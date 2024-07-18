@@ -158,7 +158,7 @@ func (inst *VerificationServiceImpl) makeToken(c context.Context, v *services.Ve
 
 	// set token
 	token.Properties = data2.saveProperties(token.Properties)
-	token.CreatedAt = t1
+	token.StartedAt = t1
 	token.ExpiredAt = t2
 	return inst.JWT.SetDTO(c, token)
 }

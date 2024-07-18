@@ -4,21 +4,12 @@ import (
 	"embed"
 
 	"github.com/starter-go/application"
-	"github.com/starter-go/libgin/modules/libgin"
-	"github.com/starter-go/libgorm/modules/libgorm"
-	"github.com/starter-go/module-gorm-mysql/modules/mysql"
-	"github.com/starter-go/module-gorm-sqlserver/modules/sqlserver"
-	"github.com/starter-go/security-gin/modules/securitygin"
-	"github.com/starter-go/security-gorm/modules/securitygorm"
-	"github.com/starter-go/security/modules/security"
-
-	"github.com/starter-go/mails/modules/mails"
 )
 
 const (
 	theModuleName = "github.com/starter-go/security-gin-gorm"
-	theModuleVer  = "v1.0.51"
-	theModuleRev  = 18
+	theModuleVer  = "v1.0.55"
+	theModuleRev  = 19
 )
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -46,13 +37,6 @@ func NewMainModule() *application.ModuleBuilder {
 
 	mb.EmbedResources(theMainModuleResFS, theMainModuleResPath)
 
-	mb.Depend(libgin.Module())
-	mb.Depend(libgorm.Module())
-	mb.Depend(securitygorm.Module())
-	mb.Depend(securitygin.Module())
-	mb.Depend(security.Module())
-	mb.Depend(mails.LibModule())
-
 	return mb
 }
 
@@ -65,9 +49,6 @@ func NewTestModule() *application.ModuleBuilder {
 	mb.Revision(theModuleRev)
 
 	mb.EmbedResources(theTestModuleResFS, theTestModuleResPath)
-
-	mb.Depend(mysql.Module())
-	mb.Depend(sqlserver.Module())
 
 	return mb
 }

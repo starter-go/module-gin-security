@@ -1,11 +1,14 @@
 package home
 
 import (
+	"time"
+
 	"github.com/gin-gonic/gin"
+	"github.com/starter-go/base/lang"
 	"github.com/starter-go/libgin"
 	"github.com/starter-go/rbac"
 	"github.com/starter-go/security-gin-gorm/components/web/controllers"
-	"github.com/starter-go/security/jwt"
+	"github.com/starter-go/security/subjects"
 )
 
 // TokenVO ...
@@ -23,9 +26,10 @@ type TokenController struct {
 	//starter:component()
 	_as func(libgin.Controller) //starter:as(".")
 
-	Responder  libgin.Responder       //starter:inject("#")
-	Service    rbac.PermissionService //starter:inject("#")
-	JWTService jwt.Service            //starter:inject("#")
+	Responder libgin.Responder       //starter:inject("#")
+	Service   rbac.PermissionService //starter:inject("#")
+
+	// JWTService jwt.Service            //starter:inject("#")
 
 }
 
@@ -193,14 +197,13 @@ func (inst *myTokenRequest) doGetOne() error {
 
 func (inst *myTokenRequest) doGetCurrent() error {
 	ctx := inst.context
-	t1, err := inst.controller.JWTService.GetDTO(ctx)
-	t2 := &rbac.TokenDTO{}
-	if err == nil {
-		inst.castTokenInfo(t1, t2)
+	sub, err := subjects.Current(ctx)
+	if err != nil {
+		return err
 	}
-	list := inst.body2.Tokens
-	list = append(list, t2)
-	inst.body2.Tokens = list
+	token := sub.GetToken()
+	o1 := token.Get()
+	inst.body2.Tokens = []*rbac.TokenDTO{o1}
 	return nil
 }
 
@@ -211,35 +214,43 @@ func (inst *myTokenRequest) doInsert() error {
 func (inst *myTokenRequest) doRenew() error {
 
 	ctx := inst.context
-	ser := inst.controller.JWTService
-
-	// want
-	want, err := controllers.GetItemOnlyOne[rbac.TokenDTO](inst.body1.Tokens)
+	sub, err := subjects.Current(ctx)
 	if err != nil {
 		return err
+	}
+
+	// params
+	list1 := inst.body1.Tokens
+	item1, err := controllers.GetItemOnlyOne[rbac.TokenDTO](list1)
+	if err != nil {
+		return err
+	}
+
+	t1 := lang.Now()
+	t2 := item1.ExpiredAt
+	if t2 == 0 {
+		t2 = t1.Add(120 * time.Second) // 默认 max-age 为 120 s
 	}
 
 	// older
-	t1, err := ser.GetDTO(ctx)
-	if err != nil {
-		return err
-	}
+	token := sub.GetToken()
+	tk1 := token.Get()
 
 	// newer
-	t2 := &jwt.Token{}
-	t2.Session = t1.Session
-	t2.ExpiredAt = want.ExpiredAt
-	err = ser.SetDTO(ctx, t2)
+	tk2 := &rbac.TokenDTO{}
+	*tk2 = *tk1
+	tk2.StartedAt = t1
+	tk2.ExpiredAt = t2
+
+	// update
+	token.Set(tk2)
+	err = token.Commit()
 	if err != nil {
 		return err
 	}
 
-	// response
-	t3 := &rbac.TokenDTO{}
-	inst.castTokenInfo(t2, t3)
-	list := inst.body2.Tokens
-	list = append(list, t3)
-	inst.body2.Tokens = list
+	// done
+	inst.body2.Tokens = []*rbac.TokenDTO{tk2}
 	return nil
 }
 
@@ -251,11 +262,11 @@ func (inst *myTokenRequest) doRemove() error {
 	return nil
 }
 
-func (inst *myTokenRequest) castTokenInfo(src *jwt.Token, dst *rbac.TokenDTO) {
-	dst.CreatedAt = src.CreatedAt
-	dst.ExpiredAt = src.ExpiredAt
-	dst.MaxAge = src.MaxAge
-	dst.Session = &src.Session
-}
+// func (inst *myTokenRequest) castTokenInfo(src *jwt.Token, dst *rbac.TokenDTO) {
+// 	dst.CreatedAt = src.CreatedAt
+// 	dst.ExpiredAt = src.ExpiredAt
+// 	dst.MaxAge = src.MaxAge
+// 	dst.Session = &src.Session
+// }
 
 ////////////////////////////////////////////////////////////////////////////////

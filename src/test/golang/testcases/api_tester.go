@@ -6,6 +6,7 @@ import (
 	"github.com/starter-go/httpagent"
 	"github.com/starter-go/rbac"
 	"github.com/starter-go/security-gin-gorm/components/web/controllers/home"
+	"github.com/starter-go/units"
 )
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -14,24 +15,28 @@ import (
 type APITester struct {
 
 	//starter:component()
-	_as func(TestRunnable) //starter:as(".")
+
+	_as func(units.Units) //starter:as(".")
 
 	Agent           httpagent.Clients //starter:inject("#")
 	ResponseHandler ResponseHandler   //starter:inject("#")
 
 }
 
-func (inst *APITester) _impl() TestRunnable {
-	return inst
-}
+func (inst *APITester) _impl() units.Units { return inst }
 
-// GetRunnableInfo ...
-func (inst *APITester) GetRunnableInfo() *TestRunnableInfo {
-	info := &TestRunnableInfo{}
-	info.Name = "APITester"
-	info.Order = 0
-	info.OnLoop = inst.run
-	return info
+// Units  ...
+func (inst *APITester) Units(list []*units.Registration) []*units.Registration {
+
+	info := &units.Registration{
+		Name:     "APITester",
+		Test:     inst.run,
+		Enabled:  true,
+		Priority: 0,
+	}
+
+	list = append(list, info)
+	return list
 }
 
 func (inst *APITester) run() error {

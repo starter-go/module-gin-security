@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/starter-go/httpagent"
+	"github.com/starter-go/units"
 	"github.com/starter-go/vlog"
 )
 
@@ -13,24 +14,28 @@ import (
 type SessionsCurrentTester struct {
 
 	//starter:component()
-	_as func(TestRunnable) //starter:as(".")
+
+	_as func(units.Units) //starter:as(".")
 
 	Agent           httpagent.Clients //starter:inject("#")
 	ResponseHandler ResponseHandler   //starter:inject("#")
 
 }
 
-func (inst *SessionsCurrentTester) _impl() TestRunnable {
-	return inst
-}
+func (inst *SessionsCurrentTester) _impl() units.Units { return inst }
 
-// GetRunnableInfo ...
-func (inst *SessionsCurrentTester) GetRunnableInfo() *TestRunnableInfo {
-	info := &TestRunnableInfo{}
-	info.Name = "SessionsCurrentTester"
-	info.Order = OrderSessionsCurrent
-	info.OnLoop = inst.run
-	return info
+// Units  ...
+func (inst *SessionsCurrentTester) Units(list []*units.Registration) []*units.Registration {
+
+	info := &units.Registration{
+		Name:     "SessionsCurrentTester",
+		Test:     inst.run,
+		Enabled:  true,
+		Priority: 0 - OrderSessionsCurrent,
+	}
+
+	list = append(list, info)
+	return list
 }
 
 func (inst *SessionsCurrentTester) run() error {

@@ -1,6 +1,5 @@
 package test4ggsecurity
 import (
-    p0ef6f2938 "github.com/starter-go/application"
     pdea5a0f47 "github.com/starter-go/httpagent"
     pe7f155628 "github.com/starter-go/security-gin-gorm/src/test/golang/testcases"
      "github.com/starter-go/application"
@@ -9,7 +8,7 @@ import (
 // type pe7f155628.APITester in package:github.com/starter-go/security-gin-gorm/src/test/golang/testcases
 //
 // id:com-e7f155628f0ebd15-testcases-APITester
-// class:class-e7f155628f0ebd15880a930dee7b8781-TestRunnable
+// class:class-0dc072ed44b3563882bff4e657a52e62-Units
 // alias:
 // scope:singleton
 //
@@ -19,7 +18,7 @@ type pe7f155628f_testcases_APITester struct {
 func (inst* pe7f155628f_testcases_APITester) register(cr application.ComponentRegistry) error {
 	r := cr.NewRegistration()
 	r.ID = "com-e7f155628f0ebd15-testcases-APITester"
-	r.Classes = "class-e7f155628f0ebd15880a930dee7b8781-TestRunnable"
+	r.Classes = "class-0dc072ed44b3563882bff4e657a52e62-Units"
 	r.Aliases = ""
 	r.Scope = "singleton"
 	r.NewFunc = inst.new
@@ -59,7 +58,7 @@ func (inst*pe7f155628f_testcases_APITester) getResponseHandler(ie application.In
 // type pe7f155628.AuthSendVerificationMailTester in package:github.com/starter-go/security-gin-gorm/src/test/golang/testcases
 //
 // id:com-e7f155628f0ebd15-testcases-AuthSendVerificationMailTester
-// class:class-e7f155628f0ebd15880a930dee7b8781-TestRunnable
+// class:class-0dc072ed44b3563882bff4e657a52e62-Units
 // alias:
 // scope:singleton
 //
@@ -69,7 +68,7 @@ type pe7f155628f_testcases_AuthSendVerificationMailTester struct {
 func (inst* pe7f155628f_testcases_AuthSendVerificationMailTester) register(cr application.ComponentRegistry) error {
 	r := cr.NewRegistration()
 	r.ID = "com-e7f155628f0ebd15-testcases-AuthSendVerificationMailTester"
-	r.Classes = "class-e7f155628f0ebd15880a930dee7b8781-TestRunnable"
+	r.Classes = "class-0dc072ed44b3563882bff4e657a52e62-Units"
 	r.Aliases = ""
 	r.Scope = "singleton"
 	r.NewFunc = inst.new
@@ -109,7 +108,7 @@ func (inst*pe7f155628f_testcases_AuthSendVerificationMailTester) getResponseHand
 // type pe7f155628.AuthSendVerificationSMSTester in package:github.com/starter-go/security-gin-gorm/src/test/golang/testcases
 //
 // id:com-e7f155628f0ebd15-testcases-AuthSendVerificationSMSTester
-// class:class-e7f155628f0ebd15880a930dee7b8781-TestRunnable
+// class:class-0dc072ed44b3563882bff4e657a52e62-Units
 // alias:
 // scope:singleton
 //
@@ -119,7 +118,7 @@ type pe7f155628f_testcases_AuthSendVerificationSMSTester struct {
 func (inst* pe7f155628f_testcases_AuthSendVerificationSMSTester) register(cr application.ComponentRegistry) error {
 	r := cr.NewRegistration()
 	r.ID = "com-e7f155628f0ebd15-testcases-AuthSendVerificationSMSTester"
-	r.Classes = "class-e7f155628f0ebd15880a930dee7b8781-TestRunnable"
+	r.Classes = "class-0dc072ed44b3563882bff4e657a52e62-Units"
 	r.Aliases = ""
 	r.Scope = "singleton"
 	r.NewFunc = inst.new
@@ -159,7 +158,7 @@ func (inst*pe7f155628f_testcases_AuthSendVerificationSMSTester) getResponseHandl
 // type pe7f155628.AuthSignInTester in package:github.com/starter-go/security-gin-gorm/src/test/golang/testcases
 //
 // id:com-e7f155628f0ebd15-testcases-AuthSignInTester
-// class:class-e7f155628f0ebd15880a930dee7b8781-TestRunnable
+// class:class-0dc072ed44b3563882bff4e657a52e62-Units
 // alias:
 // scope:singleton
 //
@@ -169,7 +168,7 @@ type pe7f155628f_testcases_AuthSignInTester struct {
 func (inst* pe7f155628f_testcases_AuthSignInTester) register(cr application.ComponentRegistry) error {
 	r := cr.NewRegistration()
 	r.ID = "com-e7f155628f0ebd15-testcases-AuthSignInTester"
-	r.Classes = "class-e7f155628f0ebd15880a930dee7b8781-TestRunnable"
+	r.Classes = "class-0dc072ed44b3563882bff4e657a52e62-Units"
 	r.Aliases = ""
 	r.Scope = "singleton"
 	r.NewFunc = inst.new
@@ -209,7 +208,7 @@ func (inst*pe7f155628f_testcases_AuthSignInTester) getResponseHandler(ie applica
 // type pe7f155628.AuthSignUpTester in package:github.com/starter-go/security-gin-gorm/src/test/golang/testcases
 //
 // id:com-e7f155628f0ebd15-testcases-AuthSignUpTester
-// class:class-e7f155628f0ebd15880a930dee7b8781-TestRunnable
+// class:class-0dc072ed44b3563882bff4e657a52e62-Units
 // alias:
 // scope:singleton
 //
@@ -219,7 +218,7 @@ type pe7f155628f_testcases_AuthSignUpTester struct {
 func (inst* pe7f155628f_testcases_AuthSignUpTester) register(cr application.ComponentRegistry) error {
 	r := cr.NewRegistration()
 	r.ID = "com-e7f155628f0ebd15-testcases-AuthSignUpTester"
-	r.Classes = "class-e7f155628f0ebd15880a930dee7b8781-TestRunnable"
+	r.Classes = "class-0dc072ed44b3563882bff4e657a52e62-Units"
 	r.Aliases = ""
 	r.Scope = "singleton"
 	r.NewFunc = inst.new
@@ -259,7 +258,7 @@ func (inst*pe7f155628f_testcases_AuthSignUpTester) getResponseHandler(ie applica
 // type pe7f155628.SessionsCurrentTester in package:github.com/starter-go/security-gin-gorm/src/test/golang/testcases
 //
 // id:com-e7f155628f0ebd15-testcases-SessionsCurrentTester
-// class:class-e7f155628f0ebd15880a930dee7b8781-TestRunnable
+// class:class-0dc072ed44b3563882bff4e657a52e62-Units
 // alias:
 // scope:singleton
 //
@@ -269,7 +268,7 @@ type pe7f155628f_testcases_SessionsCurrentTester struct {
 func (inst* pe7f155628f_testcases_SessionsCurrentTester) register(cr application.ComponentRegistry) error {
 	r := cr.NewRegistration()
 	r.ID = "com-e7f155628f0ebd15-testcases-SessionsCurrentTester"
-	r.Classes = "class-e7f155628f0ebd15880a930dee7b8781-TestRunnable"
+	r.Classes = "class-0dc072ed44b3563882bff4e657a52e62-Units"
 	r.Aliases = ""
 	r.Scope = "singleton"
 	r.NewFunc = inst.new
@@ -454,62 +453,6 @@ func (inst* pe7f155628f_testcases_MyHTTPAgentFilter) inject(injext application.I
 
 
     return nil
-}
-
-
-
-// type pe7f155628.TestRunner in package:github.com/starter-go/security-gin-gorm/src/test/golang/testcases
-//
-// id:com-e7f155628f0ebd15-testcases-TestRunner
-// class:
-// alias:
-// scope:singleton
-//
-type pe7f155628f_testcases_TestRunner struct {
-}
-
-func (inst* pe7f155628f_testcases_TestRunner) register(cr application.ComponentRegistry) error {
-	r := cr.NewRegistration()
-	r.ID = "com-e7f155628f0ebd15-testcases-TestRunner"
-	r.Classes = ""
-	r.Aliases = ""
-	r.Scope = "singleton"
-	r.NewFunc = inst.new
-	r.InjectFunc = inst.inject
-	return r.Commit()
-}
-
-func (inst* pe7f155628f_testcases_TestRunner) new() any {
-    return &pe7f155628.TestRunner{}
-}
-
-func (inst* pe7f155628f_testcases_TestRunner) inject(injext application.InjectionExt, instance any) error {
-	ie := injext
-	com := instance.(*pe7f155628.TestRunner)
-	nop(ie, com)
-
-	
-    com.AppContext = inst.getAppContext(ie)
-    com.RunnableList = inst.getRunnableList(ie)
-
-
-    return nil
-}
-
-
-func (inst*pe7f155628f_testcases_TestRunner) getAppContext(ie application.InjectionExt)p0ef6f2938.Context{
-    return ie.GetContext()
-}
-
-
-func (inst*pe7f155628f_testcases_TestRunner) getRunnableList(ie application.InjectionExt)[]pe7f155628.TestRunnable{
-    dst := make([]pe7f155628.TestRunnable, 0)
-    src := ie.ListComponents(".class-e7f155628f0ebd15880a930dee7b8781-TestRunnable")
-    for _, item1 := range src {
-        item2 := item1.(pe7f155628.TestRunnable)
-        dst = append(dst, item2)
-    }
-    return dst
 }
 
 

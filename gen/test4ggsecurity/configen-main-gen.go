@@ -40,7 +40,6 @@ func (inst*autoRegistrar) addAll() error {
     inst.register(&pe7f155628f_testcases_MockSMSSender{})
     inst.register(&pe7f155628f_testcases_MyHTTPAgentFilter{})
     inst.register(&pe7f155628f_testcases_SessionsCurrentTester{})
-    inst.register(&pe7f155628f_testcases_TestRunner{})
 
 
     return nil

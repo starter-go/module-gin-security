@@ -50,7 +50,9 @@ func (inst *AuthController) Registration() *libgin.ControllerRegistration {
 func (inst *AuthController) route(g libgin.RouterProxy) error {
 	g = g.For("auth")
 
+	g.GET("", inst.handleGetExample)        // 获取数据结构示例
 	g.GET("example", inst.handleGetExample) // 获取数据结构示例
+	g.GET("help", inst.handleGetExample)    // 获取数据结构示例
 
 	g.POST("", inst.handleSignIn)                                     // 'sign-in' 的简要别名
 	g.POST("sign-in", inst.handleSignIn)                              // 登录
@@ -182,56 +184,83 @@ func (inst *myAuthRequest) send(err error) {
 
 func (inst *myAuthRequest) doSignUp() error {
 	ctx := inst.context
-	alist := inst.body1.Auth
+	list1 := inst.body1.Auth
 	action := auth.ActionSignUp
-	err := inst.controller.AuthSer.Handle(ctx, action, alist)
+	list2, err := inst.controller.AuthSer.Handle(ctx, action, list1)
+	inst.body2.Auth = list2
 	return err
 }
 
 func (inst *myAuthRequest) doLogin() error {
 	ctx := inst.context
 	action := auth.ActionLogin
-	alist := inst.body1.Auth
-	err := inst.controller.AuthSer.Handle(ctx, action, alist)
+	list1 := inst.body1.Auth
+	list2, err := inst.controller.AuthSer.Handle(ctx, action, list1)
+	inst.body2.Auth = list2
 	return err
 }
 
 func (inst *myAuthRequest) doSendMail() error {
 	ctx := inst.context
 	action := auth.ActionSendCode
-	alist := inst.body1.Auth
-	err := inst.controller.AuthSer.Handle(ctx, action, alist)
+	list1 := inst.body1.Auth
+	list2, err := inst.controller.AuthSer.Handle(ctx, action, list1)
+	inst.body2.Auth = list2
 	return err
 }
 
 func (inst *myAuthRequest) doSendSMS() error {
 	ctx := inst.context
 	action := auth.ActionSendCode
-	alist := inst.body1.Auth
-	err := inst.controller.AuthSer.Handle(ctx, action, alist)
+	list1 := inst.body1.Auth
+	list2, err := inst.controller.AuthSer.Handle(ctx, action, list1)
+	inst.body2.Auth = list2
 	return err
 }
 
 func (inst *myAuthRequest) doSetPassword() error {
 	ctx := inst.context
 	action := auth.ActionChangePassword
-	alist := inst.body1.Auth
-	err := inst.controller.AuthSer.Handle(ctx, action, alist)
+	list1 := inst.body1.Auth
+	list2, err := inst.controller.AuthSer.Handle(ctx, action, list1)
+	inst.body2.Auth = list2
 	return err
 }
 
 func (inst *myAuthRequest) doResetPassword() error {
 	ctx := inst.context
 	action := auth.ActionResetPassword
-	alist := inst.body1.Auth
-	err := inst.controller.AuthSer.Handle(ctx, action, alist)
+	list1 := inst.body1.Auth
+	list2, err := inst.controller.AuthSer.Handle(ctx, action, list1)
+	inst.body2.Auth = list2
 	return err
 }
 
 func (inst *myAuthRequest) doGetExample() error {
-	list := inst.body2.Auth
-	list = append(list, &rbac.AuthDTO{})
-	inst.body2.Auth = list
+
+	c := inst.context
+	mechanism := c.Query("mechanism")
+	action := c.Query("action")
+	step := "help"
+
+	if action == "" {
+		action = "help"
+	}
+
+	item := &rbac.AuthDTO{
+		Step:      step,
+		Action:    action,
+		Mechanism: mechanism,
+		Account:   "[helper]",
+	}
+	list1 := []*rbac.AuthDTO{item}
+
+	list2, err := inst.controller.AuthSer.Handle(c, action, list1)
+	if err != nil {
+		inst.body2.Error = err.Error()
+	}
+
+	inst.body2.Auth = list2
 	return nil
 }
 
